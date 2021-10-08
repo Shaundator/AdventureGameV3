@@ -1,4 +1,10 @@
 package Adventure;
 
-public class ShootingWeapon {
+public class ShootingWeapon extends Weapon{
+    private int ammo;
+
+    public ShootingWeapon(String name, String nameID, int weight, int damage, int ammo){
+        super(name, nameID, weight, damage);
+        this.ammo=ammo;
+    }
 }
