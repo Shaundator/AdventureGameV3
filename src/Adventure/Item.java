@@ -11,9 +11,14 @@ public class Item extends Items {
         return 0;
     }
 
+    @Override
+    public int getDamage() {
+        return 0;
+    }
 
-
-
+    @Override
+    public void useItem() {
+    }
 
     @Override
     public boolean foodCheck() {

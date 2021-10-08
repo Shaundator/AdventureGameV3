@@ -39,6 +39,24 @@ public class Parser {
         }
     }
 
+    public String battleMenu() {
+        Scanner scBattle = new Scanner(System.in);
+        String choice = scBattle.nextLine().toLowerCase();
+        boolean validAttack = true;
+        while (validAttack) {
+            if (choice.equals("attack")) {
+                return "attack";
+            }
+            if (choice.equals("items") || choice.equals("item")) {
+                return "items";
+            }
+            if (choice.equals("flee")) {
+                return "flee";
+            }
+        }
+        return "what?";
+    }
+
     public String scanDirection(String userInput) {
         if ((userInput.equalsIgnoreCase("North")) || (userInput.equalsIgnoreCase("N"))) {
             return "north";

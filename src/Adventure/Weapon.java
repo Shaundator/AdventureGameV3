@@ -10,8 +10,8 @@ public abstract class Weapon extends Item {
 
     public abstract boolean weaponCheck();
 
-    public int getDamage(){
+    @Override
+    public int getDamage() {
         return damage;
     }
-
 }

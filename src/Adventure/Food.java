@@ -9,14 +9,21 @@ public class Food extends Items {
     }
 
     @Override
+    public void useItem() {
+    }
+
+    @Override
     public int consumeFood() {
         return healthPoints;
+    }
+    @Override
+    public int getDamage() {
+        return 0;
     }
     @Override
     public boolean weaponCheck() {
         return false;
     }
-
     @Override
     public boolean foodCheck() {
         return true;

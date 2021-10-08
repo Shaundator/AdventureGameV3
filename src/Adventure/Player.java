@@ -8,7 +8,7 @@ public class Player {
     private ArrayList<Items> inventory = new ArrayList<>();
     private int health;
     private int currentHealth;
-    private Weapon currentWeapon;
+    private Items currentWeapon;
 
     public Player(String name, int health){
         this.name=name;
@@ -24,7 +24,7 @@ public class Player {
         inventory.remove(item);
         currentRoom.addItem(item);
     }
-    public void equipWeapon(Weapon item){
+    public void equipWeapon(Items item){
         if(currentWeapon==null) {
             currentWeapon = item;
             inventory.remove(item);
@@ -40,7 +40,6 @@ public class Player {
     public Items getCurrentWeapon() {
         return currentWeapon;
     }
-
     public ArrayList<Items> getInventory(){
         return inventory;
     }
@@ -52,12 +51,15 @@ public class Player {
         }
         return null;
     }
-
     public int getHealth(){
         return health;
     }
     public void attack(Enemy enemy){
-        currentWeapon.
+        int attackResult = enemy.getHealth() - currentWeapon.getDamage();
+        enemy.setHealth(attackResult);
+    }
+    public void takeDamage(Enemy enemy){
+        health -= enemy.getWeapon().getDamage();
     }
 
     public void setHealth(int health) {

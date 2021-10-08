@@ -1,10 +1,13 @@
 package Adventure;
 
+import java.util.Scanner;
+
 public class Game {
     private final String userName;
     Parser parser = new Parser();
     Player player;
     Map map = new Map();
+    Enemy currentEnemy;
     public Game(String userName){
         this.userName=userName;
     }
@@ -113,25 +116,52 @@ public class Game {
         }
     }
     public void health(){
-        System.out.print(userName + apostrof(userName) + " health: ");
-        healthCheck();
+        System.out.print(userName + apostrof(userName) + " health: " + healthCheck());
     }
-    public void healthCheck(){
+    public String healthCheck(){
         double currentHP = player.getCurrentHealth();
         double fullHP = player.getHealth();
         double hpDifference = fullHP/currentHP;
         if(2>hpDifference&&hpDifference>=1){
-            System.out.println(colorText(blue,player.getCurrentHealth() + "/" + player.getHealth()));
+            return colorText(blue,player.getCurrentHealth() + "/" + player.getHealth());
         }
         if(4>hpDifference&&hpDifference>=2){
-            System.out.println(colorText(yellow,player.getCurrentHealth() + "/" + player.getHealth()));
+            return colorText(yellow,player.getCurrentHealth() + "/" + player.getHealth());
         }
         if(hpDifference>=4){
-            System.out.println(colorText(red,player.getCurrentHealth() + "/" + player.getHealth()));
+            return colorText(red,player.getCurrentHealth() + "/" + player.getHealth());
         }
+        return null;
     }
     public void attack(String enemy){
-
+        if(player.getCurrentRoom().getEnemy(enemy)!=null){
+            currentEnemy=player.getCurrentRoom().getEnemy(enemy);
+            System.out.println("Fight begin");
+            int turn = 0;
+            while(true){
+                turn++;
+                System.out.println(userName + apostrof(userName) + " foe is " + currentEnemy.getName()+ "!\n"+
+                        currentEnemy.getName() + apostrof( currentEnemy.getName()) + " health: " + currentEnemy.getHealth() + "\n" +
+                        userName + apostrof(userName) + " health: " + healthCheck());
+                System.out.println("Turn " + turn);
+                if(player.getHealth()<=0){
+                    System.out.println(colorText(red,userName + " dies..."));
+                }
+                System.out.println("Attack, Items, Flee");
+                switch(parser.battleMenu()){
+                    case "attack":
+                        System.out.println(userName + " attacks " + currentEnemy.getName() + " with " + player.getCurrentWeapon());
+                        System.out.println("Damage Done: " + player.getCurrentWeapon().getDamage());
+                        break;
+                    case "items":
+                        break;
+                    case "flee":
+                        break;
+                }
+                player.attack(currentEnemy);
+                System.out.println("You");
+            }
+        }
     }
     public void equip(String item){
         if(player.findItem(item)!=null){

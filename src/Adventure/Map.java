@@ -22,6 +22,9 @@ public class Map {
     //Weapons:
     private final Items sword = new MeleeWeapon("A Sharp Sword","sword",5,25,10);
     private final Items gun = new ShootingWeapon("A Gun","gun",2,30,12);
+    private final Items stick = new MeleeWeapon("A stick","stick",1,1,1);
+    //Enemies
+    private final Enemy slime = new Enemy("A Slime", "slime",);
     //Rooms:
     //  1 = 2 = 3 = 10
     //  |   X   |

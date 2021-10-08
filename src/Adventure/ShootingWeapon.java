@@ -17,4 +17,14 @@ public class ShootingWeapon extends Weapon{
     public boolean weaponCheck() {
         return true;
     }
+
+    @Override
+    public void useItem() {
+        ammo--;
+    }
+
+    @Override
+    public int getDamage() {
+        return super.getDamage();
+    }
 }

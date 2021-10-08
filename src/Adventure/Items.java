@@ -12,8 +12,9 @@ public abstract class Items {
     }
     public abstract boolean foodCheck();
     public abstract boolean weaponCheck();
+    public abstract void useItem();
     public abstract int consumeFood();
-
+    public abstract int getDamage();
 
     public String getName(){
         return name;
