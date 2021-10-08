@@ -56,7 +56,34 @@ public class Parser {
         }
         return "what?";
     }
-
+    public String battleMenuItems(){
+        Scanner scBattleItems = new Scanner(System.in);
+        while(true){
+            String choice = scBattleItems.nextLine().toLowerCase();
+            String command = scanBattleChoice(choice);
+            if(command.equals("use")) {
+                return "use " + choice;
+            }
+            if(command.equals("throw")) {
+                return "throw " + choice;
+            }
+            if(command.equals("eat")) {
+                    return "eat " + choice;
+            }
+        }
+    }
+    public String scanBattleChoice(String userInput){
+        if(userInput.contains("use")){
+            return "use";
+        }
+        if(userInput.contains("throw")){
+            return "throw";
+        }
+        if(userInput.contains("eat")){
+            return "eat";
+        }
+        return "invalid";
+    }
     public String scanDirection(String userInput) {
         if ((userInput.equalsIgnoreCase("North")) || (userInput.equalsIgnoreCase("N"))) {
             return "north";

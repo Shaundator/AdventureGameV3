@@ -119,9 +119,12 @@ public class Game {
         System.out.print(userName + apostrof(userName) + " health: " + healthCheck());
     }
     public String healthCheck(){
+        System.out.println("healthMax: " + player.getHealth());
+        System.out.println("current health: " + player.getCurrentHealth());
         double currentHP = player.getCurrentHealth();
         double fullHP = player.getHealth();
         double hpDifference = fullHP/currentHP;
+        System.out.println("health difference: " + hpDifference);
         if(2>hpDifference&&hpDifference>=1){
             return colorText(blue,player.getCurrentHealth() + "/" + player.getHealth());
         }
@@ -136,32 +139,85 @@ public class Game {
     public void attack(String enemy){
         if(player.getCurrentRoom().getEnemy(enemy)!=null){
             currentEnemy=player.getCurrentRoom().getEnemy(enemy);
-            System.out.println("Fight begin");
+            System.out.println(userName + apostrof(userName) + " foe is " + currentEnemy.getName()+ "!");
             int turn = 0;
-            while(true){
+            boolean battleOn = true;
+            while(battleOn){
                 turn++;
-                System.out.println(userName + apostrof(userName) + " foe is " + currentEnemy.getName()+ "!\n"+
-                        currentEnemy.getName() + apostrof( currentEnemy.getName()) + " health: " + currentEnemy.getHealth() + "\n" +
+                System.out.println(currentEnemy.getName() + apostrof( currentEnemy.getName()) + " health: " + currentEnemy.getHealth() + "\n" +
                         userName + apostrof(userName) + " health: " + healthCheck());
-                System.out.println("Turn " + turn);
+                System.out.println("\nTurn " + turn);
                 if(player.getHealth()<=0){
                     System.out.println(colorText(red,userName + " dies..."));
                 }
                 System.out.println("Attack, Items, Flee");
                 switch(parser.battleMenu()){
                     case "attack":
-                        System.out.println(userName + " attacks " + currentEnemy.getName() + " with " + player.getCurrentWeapon());
+                        System.out.println(userName + " attacks " + currentEnemy.getName() + " with " + player.getCurrentWeapon().getName());
                         System.out.println("Damage Done: " + player.getCurrentWeapon().getDamage());
+                        player.attack(currentEnemy);
+                        enemyAttack();
                         break;
                     case "items":
+                        System.out.println("Use/Throw/Eat (item)");
+                        useItemFight();
                         break;
                     case "flee":
+                        battleOn=false;
                         break;
                 }
-                player.attack(currentEnemy);
-                System.out.println("You");
+                if(player.getCurrentHealth()<=0){
+                    System.out.println(colorText(red,userName + " dies..."));
+                    System.exit(0);
+                    battleOn=false;
+                }
+                if(currentEnemy.getHealth()<=0){
+                    System.out.println(userName + " is victorious!");
+                    player.getCurrentRoom().enemyDeath(currentEnemy);
+                    currentEnemy=null;
+                    battleOn=false;
+                }
             }
         }
+        else {
+            System.out.println("No such enemy");
+        }
+    }
+    public void enemyAttack(){
+        System.out.println(currentEnemy.getName() + " is furious!");
+        player.takeDamage(currentEnemy);
+        System.out.println(currentEnemy.getName() + " strikes with all its might!");
+        System.out.println(userName + " takes " + currentEnemy.getWeapon().getDamage() + " damage!");
+    }
+    public void useItemFight(){
+        String command = parser.battleMenuItems();
+        String command1 = command;
+        String command2 = "";
+        if(command.contains(" ")){
+            int space = command.indexOf(" ");
+            command1 = command.substring(0,space);
+            command2 = command.substring(space+1);
+        }
+        switch(command1){
+            case "use":
+                battleUse(command2);
+                break;
+            case "throw":
+                battleThrow(command2);
+                break;
+            case "eat":
+                battleEat(command2);
+                break;
+        }
+    }
+    public void battleUse(String item){
+        System.out.println("use item");
+    }
+    public void battleThrow(String item){
+        System.out.println("throw item");
+    }
+    public void battleEat(String item){
+        System.out.println("eat item");
     }
     public void equip(String item){
         if(player.findItem(item)!=null){
@@ -227,6 +283,7 @@ public class Game {
     //Parameters
     public void setStartParameters(){
         this.player=new Player(userName,100);
+        player.setCurrentWeapon(map.getStartItems());
         map.createWorld();
         player.setCurrentRoom(map.getStartRoom());
     }
@@ -248,7 +305,8 @@ public class Game {
                 go(command);
                 break;
             case "attack":
-                //attack()
+                System.out.println("attacking: " + command2);
+                attack(command2);
                 break;
             case "look":
                 look();

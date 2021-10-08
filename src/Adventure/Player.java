@@ -40,6 +40,9 @@ public class Player {
     public Items getCurrentWeapon() {
         return currentWeapon;
     }
+    public void setCurrentWeapon(Items currentWeapon){
+        this.currentWeapon=currentWeapon;
+    }
     public ArrayList<Items> getInventory(){
         return inventory;
     }
@@ -51,28 +54,28 @@ public class Player {
         }
         return null;
     }
-    public int getHealth(){
-        return health;
-    }
     public void attack(Enemy enemy){
         int attackResult = enemy.getHealth() - currentWeapon.getDamage();
         enemy.setHealth(attackResult);
     }
     public void takeDamage(Enemy enemy){
-        health -= enemy.getWeapon().getDamage();
+        int attackResult = currentHealth - enemy.getWeapon().getDamage();
+        setCurrentHealth(attackResult);
     }
 
     public void setHealth(int health) {
         this.health = health;
     }
-
+    public int getHealth(){
+        return health;
+    }
     public int getCurrentHealth() {
         return currentHealth;
     }
-
     public void setCurrentHealth(int currentHealth) {
         this.currentHealth = currentHealth;
     }
+
     public boolean eatItem(Items item){
         return item.foodCheck();
     }
@@ -82,18 +85,15 @@ public class Player {
             currentHealth=health;
         }
     }
-
     public void setCurrentRoom(Room room){
         this.currentRoom=room;
     }
     public Room getCurrentRoom(){
         return currentRoom;
     }
-
     public void moveRoom(Room nextRoom){
         currentRoom=nextRoom;
     }
-
     public boolean goNorth(){
         if(currentRoom.getNorth()!=null){
             moveRoom(currentRoom.getNorth());

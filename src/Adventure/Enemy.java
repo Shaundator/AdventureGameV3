@@ -7,7 +7,7 @@ public class Enemy {
     private int health;
     private Items weapon;
 
-    public Enemy(String name,String nameID, String description, int health, Items weapon){
+    public Enemy(String name, String nameID, String description, int health, Items weapon){
         this.name=name;
         this.nameID=nameID;
         this.description=description;
@@ -17,6 +17,10 @@ public class Enemy {
 
     public String getName() {
         return name;
+    }
+
+    public String getNameID() {
+        return nameID;
     }
 
     public String getDescription() {

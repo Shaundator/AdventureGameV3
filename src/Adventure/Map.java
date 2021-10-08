@@ -7,9 +7,13 @@ public class Map {
     public void createWorld(){
         createMap();
         putItems();
+        putEnemies();
     }
     public Room getStartRoom(){
         return room1;
+    }
+    public Items getStartItems(){
+        return hands;
     }
 
     //Items:
@@ -20,11 +24,12 @@ public class Map {
     private final Items food1 = new Food("Food 1","food1",2,15);
     private final Items food2 = new Food("Food 2","food2",4,-15);
     //Weapons:
+    private final Items hands = new MeleeWeapon("Your hands", "hands",0,100,1);
     private final Items sword = new MeleeWeapon("A Sharp Sword","sword",5,25,10);
     private final Items gun = new ShootingWeapon("A Gun","gun",2,30,12);
-    private final Items stick = new MeleeWeapon("A stick","stick",1,1,1);
+    private final Items stick = new MeleeWeapon("A stick","stick",1,5,1);
     //Enemies
-    private final Enemy slime = new Enemy("A Slime", "slime",);
+    private final Enemy slime = new Enemy("A Slime", "slime", "A green gooey Slime", 250, stick);
     //Rooms:
     //  1 = 2 = 3 = 10
     //  |   X   |
@@ -66,6 +71,9 @@ public class Map {
         room1.addItem(sword);
         room1.addItem(gun);
         room1.addItem(gun);
+    }
+    private void putEnemies(){
+        room1.addEnemy(slime);
     }
 
 }
