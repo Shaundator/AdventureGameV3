@@ -5,10 +5,10 @@ import java.util.ArrayList;
 public class Player {
     private String name;
     private Room currentRoom;
-    private ArrayList<Items> inventory = new ArrayList<>();
     private int health;
     private int currentHealth;
     private Items currentWeapon;
+    private ArrayList<Items> inventory = new ArrayList<>();
 
     public Player(String name, int health){
         this.name=name;
@@ -16,6 +16,7 @@ public class Player {
         currentHealth=health;
     }
 
+    //General
     public void takeItem(Items item){
         inventory.add(item);
         currentRoom.removeItem(item);
@@ -36,16 +37,6 @@ public class Player {
     public void destroyItem(Items item){
         inventory.remove(item);
     }
-
-    public Items getCurrentWeapon() {
-        return currentWeapon;
-    }
-    public void setCurrentWeapon(Items currentWeapon){
-        this.currentWeapon=currentWeapon;
-    }
-    public ArrayList<Items> getInventory(){
-        return inventory;
-    }
     public Items findItem(String item){
         for(int i = 0; i < inventory.size(); i++){
             if(inventory.get(i).getNameID().equals(item)){
@@ -54,6 +45,8 @@ public class Player {
         }
         return null;
     }
+
+    //Battle
     public void attack(Enemy enemy){
         int attackResult = enemy.getHealth() - currentWeapon.getDamage();
         enemy.setHealth(attackResult);
@@ -63,19 +56,7 @@ public class Player {
         setCurrentHealth(attackResult);
     }
 
-    public void setHealth(int health) {
-        this.health = health;
-    }
-    public int getHealth(){
-        return health;
-    }
-    public int getCurrentHealth() {
-        return currentHealth;
-    }
-    public void setCurrentHealth(int currentHealth) {
-        this.currentHealth = currentHealth;
-    }
-
+    //Food
     public boolean eatItem(Items item){
         return item.foodCheck();
     }
@@ -85,12 +66,8 @@ public class Player {
             currentHealth=health;
         }
     }
-    public void setCurrentRoom(Room room){
-        this.currentRoom=room;
-    }
-    public Room getCurrentRoom(){
-        return currentRoom;
-    }
+
+    //Movement
     public void moveRoom(Room nextRoom){
         currentRoom=nextRoom;
     }
@@ -129,5 +106,40 @@ public class Player {
         else {
             return false;
         }
+    }
+
+    //Get&Set
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public Room getCurrentRoom(){
+        return currentRoom;
+    }
+    public void setCurrentRoom(Room room){
+        this.currentRoom=room;
+    }
+    public int getHealth() {
+        return health;
+    }
+    public void setHealth(int health) {
+        this.health = health;
+    }
+    public int getCurrentHealth() {
+        return currentHealth;
+    }
+    public void setCurrentHealth(int currentHealth) {
+        this.currentHealth = currentHealth;
+    }
+    public Items getCurrentWeapon() {
+        return currentWeapon;
+    }
+    public void setCurrentWeapon(Items currentWeapon){
+        this.currentWeapon=currentWeapon;
+    }
+    public ArrayList<Items> getInventory(){
+        return inventory;
     }
 }

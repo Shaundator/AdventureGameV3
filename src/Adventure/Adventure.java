@@ -9,14 +9,6 @@ public class Adventure {
         game.startGame();
         System.out.println("This is the end of the game");
     }
-
-
-    public static void main(String[] args) {
-        System.out.print("Enter the name of your character: ");
-        Adventure adventure = new Adventure();
-        adventure.play(setUserName());
-
-    }
     public static String setUserName(){
         Scanner sc = new Scanner(System.in);
         while(!sc.hasNext()) {
@@ -24,5 +16,12 @@ public class Adventure {
             sc.next();
         }
         return sc.next();
+    }
+
+    public static void main(String[] args) {
+        System.out.print("Enter the name of your character: ");
+        Adventure adventure = new Adventure();
+        adventure.play(setUserName());
+
     }
 }

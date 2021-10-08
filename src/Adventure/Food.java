@@ -11,7 +11,6 @@ public class Food extends Items {
     @Override
     public void useItem() {
     }
-
     @Override
     public int consumeFood() {
         return healthPoints;

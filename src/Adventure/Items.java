@@ -10,11 +10,12 @@ public abstract class Items {
         this.nameID=nameID;
         this.weight=weight;
     }
+
     public abstract boolean foodCheck();
     public abstract boolean weaponCheck();
-    public abstract void useItem();
     public abstract int consumeFood();
     public abstract int getDamage();
+    public abstract void useItem();
 
     public String getName(){
         return name;

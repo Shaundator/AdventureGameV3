@@ -3,6 +3,7 @@ package Adventure;
 import java.util.Scanner;
 
 public class Parser {
+    //General
     public String commandMenu() {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine().toLowerCase();
@@ -39,6 +40,7 @@ public class Parser {
         }
     }
 
+    //Battle
     public String battleMenu() {
         Scanner scBattle = new Scanner(System.in);
         String choice = scBattle.nextLine().toLowerCase();
@@ -72,18 +74,8 @@ public class Parser {
             }
         }
     }
-    public String scanBattleChoice(String userInput){
-        if(userInput.contains("use")){
-            return "use";
-        }
-        if(userInput.contains("throw")){
-            return "throw";
-        }
-        if(userInput.contains("eat")){
-            return "eat";
-        }
-        return "invalid";
-    }
+
+    //Scanners
     public String scanDirection(String userInput) {
         if ((userInput.equalsIgnoreCase("North")) || (userInput.equalsIgnoreCase("N"))) {
             return "north";
@@ -98,6 +90,18 @@ public class Parser {
             return "west";
         }
         else return "invalid direction";
+    }
+    public String scanBattleChoice(String userInput){
+        if(userInput.contains("use")){
+            return "use";
+        }
+        if(userInput.contains("throw")){
+            return "throw";
+        }
+        if(userInput.contains("eat")){
+            return "eat";
+        }
+        return "invalid";
     }
     public String scanCommand(String userInput) {
         if ((userInput.equalsIgnoreCase("North")) || (userInput.equalsIgnoreCase("N"))) {
@@ -138,4 +142,5 @@ public class Parser {
         }
         else{return userInput;}
     }
+
 }

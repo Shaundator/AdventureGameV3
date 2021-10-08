@@ -16,18 +16,7 @@ public class Room {
         this.name=name;
         this.description=description;
     }
-    public String getName(){
-        return name;
-    }
-    public String getDescription(){
-        return description;
-    }
-    public void addItem(Items item){
-        roomItems.add(item);
-    }
-    public void removeItem(Items item){
-        roomItems.remove(item);
-    }
+
     public Items findItem(String item){
         for(int i = 0; i < roomItems.size(); i++){
             if(roomItems.get(i).getNameID().equals(item)){
@@ -36,10 +25,48 @@ public class Room {
         }
         return null;
     }
+    public void enemyDeath(Enemy deadEnemy){
+        roomItems.add(deadEnemy.getWeapon());
+        enemies.remove(deadEnemy);
+    }
+
+    //Get&Set
+    public String getName(){
+        return name;
+    }
+    public String getDescription(){
+        return description;
+    }
+
+    public void addItem(Items item){
+        roomItems.add(item);
+    }
+    public void removeItem(Items item){
+        roomItems.remove(item);
+    }
     public ArrayList<Items> getRoomItems(){
         return roomItems;
     }
 
+    public void addEnemy(Enemy enemy){
+        enemies.add(enemy);
+    }
+    public Enemy getEnemy(String enemy){
+        for(int i = 0; i < enemies.size(); i++){
+            if(enemies.get(i).getNameID().equals(enemy)){
+                return enemies.get(i);
+            }
+        }
+        return null;
+    }
+    public void removeEnemy(Enemy enemy){
+        enemies.remove(enemy);
+    }
+    public ArrayList<Enemy> getEnemies() {
+        return enemies;
+    }
+
+    //Directions
     public Room getNorth(){
         return north;
     }
@@ -87,24 +114,6 @@ public class Room {
             this.west = west;
             west.setEast(this);
         }
-    }
-    public void addEnemy(Enemy enemy){
-        enemies.add(enemy);
-    }
-    public void removeEnemy(Enemy enemy){
-        enemies.remove(enemy);
-    }
-    public Enemy getEnemy(String enemy){
-        for(int i = 0; i < enemies.size(); i++){
-            if(enemies.get(i).getNameID().equals(enemy)){
-                return enemies.get(i);
-            }
-        }
-        return null;
-    }
-    public void enemyDeath(Enemy deadEnemy){
-        roomItems.add(deadEnemy.getWeapon());
-        enemies.remove(deadEnemy);
     }
 
 }

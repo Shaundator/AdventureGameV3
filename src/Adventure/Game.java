@@ -23,8 +23,8 @@ public class Game {
         System.out.println("End of the game");
     }
 
-    //Commands
-    public void go(String direction){;
+    //Menu
+    public void go(String direction){
         if(direction.equals("north")){
             if (player.goNorth()){
                 travel(direction);
@@ -59,14 +59,6 @@ public class Game {
         }
         System.out.println("der er blevet rejst");
     }
-    public void travel(String direction){
-        System.out.println(userName + " travels " + direction + " and enters " + player.getCurrentRoom().getName());
-    }
-    public void travelNot(String direction){
-        System.out.println(colorText(red, userName + " can not travel this way..." +
-                "\nThere is no path " + direction + " of " + player.getCurrentRoom().getName()));
-
-    }
     public void look(){
         System.out.println(userName + " looks around");
         System.out.println("They are located in " + player.getCurrentRoom().getName());
@@ -75,25 +67,6 @@ public class Game {
         roomItems();
         System.out.println("\nUpon further inspection, " + userName + " tries to see if there are anyone they can talk with");
         roomNPCs();
-    }
-    public boolean roomItemsNull(){
-        return player.getCurrentRoom().getRoomItems().size() == 0;
-    }
-    public void roomItems(){
-        if(roomItemsNull()){
-            System.out.println(colorText(red,"\nThere are no items in this room"));
-            return;
-        }
-        String result = "";
-        for(int i = 0; i < player.getCurrentRoom().getRoomItems().size(); i++){
-            result += "\n" + addArticleCap(player.getCurrentRoom().getRoomItems().get(i)) +
-                    "("+player.getCurrentRoom().getRoomItems().get(i).getNameID()+")";
-        }
-        System.out.println(colorText(cyan,result));
-
-    }
-    public void roomNPCs(){
-        System.out.println(colorText(red,"there are no one around"));
     }
     public void inventory() {
         if(player.getCurrentWeapon()!=null){
@@ -117,24 +90,6 @@ public class Game {
     }
     public void health(){
         System.out.print(userName + apostrof(userName) + " health: " + healthCheck());
-    }
-    public String healthCheck(){
-        System.out.println("healthMax: " + player.getHealth());
-        System.out.println("current health: " + player.getCurrentHealth());
-        double currentHP = player.getCurrentHealth();
-        double fullHP = player.getHealth();
-        double hpDifference = fullHP/currentHP;
-        System.out.println("health difference: " + hpDifference);
-        if(2>hpDifference&&hpDifference>=1){
-            return colorText(blue,player.getCurrentHealth() + "/" + player.getHealth());
-        }
-        if(4>hpDifference&&hpDifference>=2){
-            return colorText(yellow,player.getCurrentHealth() + "/" + player.getHealth());
-        }
-        if(hpDifference>=4){
-            return colorText(red,player.getCurrentHealth() + "/" + player.getHealth());
-        }
-        return null;
     }
     public void attack(String enemy){
         if(player.getCurrentRoom().getEnemy(enemy)!=null){
@@ -182,42 +137,6 @@ public class Game {
         else {
             System.out.println("No such enemy");
         }
-    }
-    public void enemyAttack(){
-        System.out.println(currentEnemy.getName() + " is furious!");
-        player.takeDamage(currentEnemy);
-        System.out.println(currentEnemy.getName() + " strikes with all its might!");
-        System.out.println(userName + " takes " + currentEnemy.getWeapon().getDamage() + " damage!");
-    }
-    public void useItemFight(){
-        String command = parser.battleMenuItems();
-        String command1 = command;
-        String command2 = "";
-        if(command.contains(" ")){
-            int space = command.indexOf(" ");
-            command1 = command.substring(0,space);
-            command2 = command.substring(space+1);
-        }
-        switch(command1){
-            case "use":
-                battleUse(command2);
-                break;
-            case "throw":
-                battleThrow(command2);
-                break;
-            case "eat":
-                battleEat(command2);
-                break;
-        }
-    }
-    public void battleUse(String item){
-        System.out.println("use item");
-    }
-    public void battleThrow(String item){
-        System.out.println("throw item");
-    }
-    public void battleEat(String item){
-        System.out.println("eat item");
     }
     public void equip(String item){
         if(player.findItem(item)!=null){
@@ -280,10 +199,97 @@ public class Game {
         System.exit(0);
     }
 
+    //SubMenus
+
+    //go
+    public void travel(String direction){
+        System.out.println(userName + " travels " + direction + " and enters " + player.getCurrentRoom().getName());
+    }
+    public void travelNot(String direction){
+        System.out.println(colorText(red, userName + " can not travel this way..." +
+                "\nThere is no path " + direction + " of " + player.getCurrentRoom().getName()));
+
+    }
+    //look
+    public boolean roomItemsNull(){
+        return player.getCurrentRoom().getRoomItems().size() == 0;
+    }
+    public void roomItems(){
+        if(roomItemsNull()){
+            System.out.println(colorText(red,"\nThere are no items in this room"));
+            return;
+        }
+        String result = "";
+        for(int i = 0; i < player.getCurrentRoom().getRoomItems().size(); i++){
+            result += "\n" + addArticleCap(player.getCurrentRoom().getRoomItems().get(i)) +
+                    "("+player.getCurrentRoom().getRoomItems().get(i).getNameID()+")";
+        }
+        System.out.println(colorText(cyan,result));
+
+    }
+    public void roomNPCs(){
+        System.out.println(colorText(red,"there are no one around"));
+    }
+    //attack
+    public void enemyAttack(){
+        System.out.println(currentEnemy.getName() + " is furious!");
+        player.takeDamage(currentEnemy);
+        System.out.println(currentEnemy.getName() + " strikes with all its might!");
+        System.out.println(userName + " takes " + currentEnemy.getWeapon().getDamage() + " damage!");
+    }
+    public void useItemFight(){
+        String command = parser.battleMenuItems();
+        String command1 = command;
+        String command2 = "";
+        if(command.contains(" ")){
+            int space = command.indexOf(" ");
+            command1 = command.substring(0,space);
+            command2 = command.substring(space+1);
+        }
+        switch(command1){
+            case "use":
+                battleUse(command2);
+                break;
+            case "throw":
+                battleThrow(command2);
+                break;
+            case "eat":
+                battleEat(command2);
+                break;
+        }
+    }
+    public void battleUse(String item){
+        System.out.println("use item");
+    }
+    public void battleThrow(String item){
+        System.out.println("throw item");
+    }
+    public void battleEat(String item){
+        System.out.println("eat item");
+    }
+
     //Parameters
+    public String healthCheck(){
+        System.out.println("healthMax: " + player.getHealth());
+        System.out.println("current health: " + player.getCurrentHealth());
+        double currentHP = player.getCurrentHealth();
+        double fullHP = player.getHealth();
+        double hpDifference = fullHP/currentHP;
+        System.out.println("health difference: " + hpDifference);
+        if(2>hpDifference&&hpDifference>=1){
+            return colorText(blue,player.getCurrentHealth() + "/" + player.getHealth());
+        }
+        if(4>hpDifference&&hpDifference>=2){
+            return colorText(yellow,player.getCurrentHealth() + "/" + player.getHealth());
+        }
+        if(hpDifference>=4){
+            return colorText(red,player.getCurrentHealth() + "/" + player.getHealth());
+        }
+        return null;
+    }
     public void setStartParameters(){
         this.player=new Player(userName,100);
-        player.setCurrentWeapon(map.getStartItems());
+        player.setCurrentWeapon(map.getStartItem());
         map.createWorld();
         player.setCurrentRoom(map.getStartRoom());
     }

@@ -9,6 +9,14 @@ public class ShootingWeapon extends Weapon{
     }
 
     @Override
+    public void useItem() {
+        ammo--;
+    }
+    @Override
+    public int getDamage() {
+        return super.getDamage();
+    }
+    @Override
     public boolean foodCheck() {
         return false;
     }
@@ -16,15 +24,5 @@ public class ShootingWeapon extends Weapon{
     @Override
     public boolean weaponCheck() {
         return true;
-    }
-
-    @Override
-    public void useItem() {
-        ammo--;
-    }
-
-    @Override
-    public int getDamage() {
-        return super.getDamage();
     }
 }

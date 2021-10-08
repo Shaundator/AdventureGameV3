@@ -1,8 +1,8 @@
 package Adventure;
 
 public class Enemy {
-    private String name;
-    private String nameID;
+    private final String name;
+    private final String nameID;
     private String description;
     private int health;
     private Items weapon;
@@ -15,26 +15,30 @@ public class Enemy {
         this.weapon=weapon;
     }
 
+
+    //Get&Set
     public String getName() {
         return name;
     }
-
     public String getNameID() {
         return nameID;
     }
-
     public String getDescription() {
         return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    public int getHealth() {
+        return health;
+    }
+    public void setHealth(int health) {
+        this.health = health;
     }
     public Items getWeapon(){
         return weapon;
     }
-
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
-    public int getHealth() {
-        return health;
+    public void setWeapon(Items weapon) {
+        this.weapon = weapon;
     }
 }
