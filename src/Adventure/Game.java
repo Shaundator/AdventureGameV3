@@ -93,6 +93,9 @@ public class Game {
         System.out.println(colorText(red,"there are no one around"));
     }
     public void inventory() {
+        if(player.getCurrentWeapon()!=null){
+            System.out.println(userName + " is holding " + player.getCurrentWeapon().getName() + " as a weapon");
+        }
         System.out.println(userName + " checks their inventory");
         System.out.println("Items:");
         String inventory = "";
@@ -110,14 +113,38 @@ public class Game {
         }
     }
     public void health(){
-        System.out.println(userName + apostrof(userName) + " health: " + player.getCurrentHealth() + "/" + player.getHealth());
+        System.out.print(userName + apostrof(userName) + " health: ");
+        healthCheck();
+    }
+    public void healthCheck(){
+        double currentHP = player.getCurrentHealth();
+        double fullHP = player.getHealth();
+        double hpDifference = fullHP/currentHP;
+        if(2>hpDifference&&hpDifference>=1){
+            System.out.println(colorText(blue,player.getCurrentHealth() + "/" + player.getHealth()));
+        }
+        if(4>hpDifference&&hpDifference>=2){
+            System.out.println(colorText(yellow,player.getCurrentHealth() + "/" + player.getHealth()));
+        }
+        if(hpDifference>=4){
+            System.out.println(colorText(red,player.getCurrentHealth() + "/" + player.getHealth()));
+        }
     }
     public void attack(String enemy){
+
     }
     public void equip(String item){
+        if(player.findItem(item)!=null){
+            if(player.findItem(item).weaponCheck()){
+                System.out.println(colorText(blue,userName + " equips " + player.findItem(item).getName()));
+                player.equipWeapon(player.findItem(item));
+            } else {
+                System.out.println(colorText(red,player.findItem(item).getName() + " is not a weapon"));
+            }
+        }
     }
     public void take(String item){
-        Item tempItem = player.getCurrentRoom().findItem(item);
+        Items tempItem = player.getCurrentRoom().findItem(item);
         if(tempItem==null){
             System.out.println(colorText(red,player.getCurrentRoom().getName() + " does not contain any " + item));
             return;
@@ -126,7 +153,7 @@ public class Game {
         System.out.println(colorText(green,userName + " takes " + tempItem.getName()));
     }
     public void drop(String item){
-        Item tempItem = player.findItem(item);
+        Items tempItem = player.findItem(item);
         if(tempItem==null){
             System.out.println(colorText(red,userName + apostrof(userName) + " inventory does not contain " + item));
             return;
@@ -134,7 +161,18 @@ public class Game {
         player.dropItem(tempItem);
         System.out.println(colorText(green,userName + " drops " + tempItem.getName()));
     }
-    public void eat(String item){
+    public void eat(String item) {
+        if (player.findItem(item) != null) {
+            if (player.eatItem(player.findItem(item))){
+                player.eatFood(player.findItem(item));
+                System.out.println(userName + " eats " + player.findItem(item).getName());
+                player.destroyItem(player.findItem(item));
+            } else {
+                System.out.println(colorText(red,player.findItem(item).getName() + " cannot be eaten"));
+            }
+        } else {
+            System.out.println(colorText(red, userName + apostrof(userName) + " inventory does not contain " + item));
+        }
     }
     public void help(){
         System.out.println(colorText(white,"""
@@ -223,14 +261,14 @@ public class Game {
             return "'s";
         }
     }
-    public String addArticle(Item item){
+    public String addArticle(Items item){
         char letter = item.getName().toLowerCase().charAt(0);
         return switch (letter) {
             case ('a'), ('e'), ('i'), ('o'), ('y'), ('u') -> "an " + item.getName();
             default -> "a " + item.getName();
         };
     }
-    public String addArticleCap(Item item){
+    public String addArticleCap(Items item){
         char letter = item.getName().toLowerCase().charAt(0);
         return switch (letter) {
             case ('a'), ('e'), ('i'), ('o'), ('y'), ('u') -> "An " + item.getName();

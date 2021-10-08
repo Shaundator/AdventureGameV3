@@ -29,7 +29,7 @@ public class Parser {
                 return command + " " + commandInput;
             case "look":
             case "inventory":
-            case "hp":
+            case "health":
             case "time":
             case "help":
             case "exit":
@@ -71,7 +71,7 @@ public class Parser {
             return "inventory";
         }
         else if ((userInput.equalsIgnoreCase("health")) || (userInput.equalsIgnoreCase("hp"))){
-            return "hp";
+            return "health";
         }
         else if ((userInput.equalsIgnoreCase("Take"))){
             return "take";

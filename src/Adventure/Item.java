@@ -1,23 +1,26 @@
 package Adventure;
 
-public class Item {
-    private String name;
-    private String nameID;
-    private int weight;
+public class Item extends Items {
 
-    public Item(String name, String nameID, int weight){
-        this.name=name;
-        this.nameID=nameID;
-        this.weight=weight;
+    public Item(String name, String nameID, int weight) {
+        super(name, nameID, weight);
     }
 
-    public String getName(){
-        return name;
+    @Override
+    public int consumeFood() {
+        return 0;
     }
-    public String getNameID(){
-        return nameID;
+
+
+
+
+
+    @Override
+    public boolean foodCheck() {
+        return false;
     }
-    public int getWeight() {
-        return weight;
+    @Override
+    public boolean weaponCheck() {
+        return false;
     }
 }

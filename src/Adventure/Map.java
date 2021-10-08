@@ -13,9 +13,15 @@ public class Map {
     }
 
     //Items:
-    private final Item item1 = new Item("Item 1","item1",5);
-    private final Item item2 = new Item("Item 2","item2",5);
-    private final Item item3 = new Item("Item 3","item3",5);
+    private final Items item1 = new Item("Item 1","item1",5);
+    private final Items item2 = new Item("Item 2","item2",5);
+    private final Items item3 = new Item("Item 3","item3",5);
+    //Food:
+    private final Items food1 = new Food("Food 1","food1",2,15);
+    private final Items food2 = new Food("Food 2","food2",4,-15);
+    //Weapons:
+    private final Items sword = new MeleeWeapon("A Sharp Sword","sword",5,25,10);
+    private final Items gun = new ShootingWeapon("A Gun","gun",2,30,12);
     //Rooms:
     //  1 = 2 = 3 = 10
     //  |   X   |
@@ -48,6 +54,15 @@ public class Map {
         room1.addItem(item1);
         room1.addItem(item3);
         room2.addItem(item2);
+        room1.addItem(food1);
+        room1.addItem(food1);
+        room1.addItem(food1);
+        room1.addItem(food2);
+        room1.addItem(food2);
+        room1.addItem(food2);
+        room1.addItem(sword);
+        room1.addItem(gun);
+        room1.addItem(gun);
     }
 
 }

@@ -1,18 +1,24 @@
 package Adventure;
 
-public class Food extends Item {
-    private int healthPoints;
+public class Food extends Items {
+    private final int healthPoints;
 
     public Food(String name, String nameID, int weight, int healthPoints){
         super(name, nameID, weight);
         this.healthPoints=healthPoints;
     }
 
-    public int getHealthPoints() {
+    @Override
+    public int consumeFood() {
         return healthPoints;
     }
+    @Override
+    public boolean weaponCheck() {
+        return false;
+    }
 
-    public void setHealthPoints(int healthPoints) {
-        this.healthPoints = healthPoints;
+    @Override
+    public boolean foodCheck() {
+        return true;
     }
 }

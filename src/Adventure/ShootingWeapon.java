@@ -7,4 +7,14 @@ public class ShootingWeapon extends Weapon{
         super(name, nameID, weight, damage);
         this.ammo=ammo;
     }
+
+    @Override
+    public boolean foodCheck() {
+        return false;
+    }
+
+    @Override
+    public boolean weaponCheck() {
+        return true;
+    }
 }
