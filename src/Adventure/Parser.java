@@ -43,9 +43,9 @@ public class Parser {
     //Battle
     public String battleMenu() {
         Scanner scBattle = new Scanner(System.in);
-        String choice = scBattle.nextLine().toLowerCase();
         boolean validAttack = true;
         while (validAttack) {
+            String choice = scBattle.nextLine().toLowerCase();
             if (choice.equals("attack")) {
                 return "attack";
             }
@@ -55,6 +55,7 @@ public class Parser {
             if (choice.equals("flee")) {
                 return "flee";
             }
+            System.out.println("invalid");
         }
         return "what?";
     }
@@ -72,6 +73,7 @@ public class Parser {
             if(command.equals("eat")) {
                     return "eat " + choice;
             }
+            System.out.println("invalid");
         }
     }
 

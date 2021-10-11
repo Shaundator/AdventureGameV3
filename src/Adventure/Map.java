@@ -29,22 +29,22 @@ public class Map {
     private final Items gun = new ShootingWeapon("A Gun","gun",2,30,12);
     private final Items stick = new MeleeWeapon("A stick","stick",1,5);
     //Enemies
-    private final Enemy slime = new Enemy("A Slime", "slime", "A green gooey Slime", 250, stick);
+    private final Enemy slime = new Enemy("A Slime", "slime", "wA green gooey Slime", 250, stick);
     //Rooms:
     //  1 = 2 = 3 = 10
     //  |   X   |
     //  4 X 5 X 6
     //  |   |   |
     //  7 = 8 = 9
-    private final Room room1 = new Room("room1", "this is room 1");
-    private final Room room2 = new Room("room2", "this is room 2");
-    private final Room room3 = new Room("room3", "this is room 3");
-    private final Room room4 = new Room("room4", "this is room 4");
-    private final Room room5 = new Room("room5", "this is room 5");
-    private final Room room6 = new Room("room6", "this is room 6");
-    private final Room room7 = new Room("room7", "this is room 7");
-    private final Room room8 = new Room("room8", "this is room 8");
-    private final Room room9 = new Room("room9", "this is room 9");
+    private final Room room1 = new Room("Subway Station", "The train is loud, and os are the people walking around");
+    private final Room room2 = new Room("Train", "The train travels fast, yet it seems like this ride could take an eternity");
+    private final Room room3 = new Room("Familiar Park", "The place reminds you of something, but you can't put your finger on it");
+    private final Room room4 = new Room("Police Station", "You should avoid this place if you are up to mischief");
+    private final Room room5 = new Room("Prison", "The prison stands at show for all, with its many occupants to display like it was a zoo");
+    private final Room room6 = new Room("School", "The place that could be summed up as progress and boredom, depending on who you ask of course");
+    private final Room room7 = new Room("Border", "What countries lies beyond the border? No one seems to know or ask");
+    private final Room room8 = new Room("Cocaine Street", "A place publicly known for it's illegalities, a place of adventure and mischief");
+    private final Room room9 = new Room("Bench by a lake", "The best place to take a sleeper when the road home is mystery");
     //WorldBuilding
     private void createMap(){
         room1.setEast(room2);
@@ -59,20 +59,13 @@ public class Map {
     }
     private void putItems(){
         room1.addItem(item1);
-        room1.addItem(item1);
         room1.addItem(item3);
         room2.addItem(item2);
-        room1.addItem(food1);
-        room1.addItem(food1);
-        room1.addItem(food1);
-        room1.addItem(food2);
-        room1.addItem(food2);
-        room1.addItem(food2);
         room1.addItem(sword);
-        room1.addItem(gun);
         room1.addItem(gun);
     }
     private void putEnemies(){
+        room1.addEnemy(slime);
         room1.addEnemy(slime);
     }
 
