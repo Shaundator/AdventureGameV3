@@ -106,43 +106,44 @@ public class Game {
             boolean battleOn = true;
             while(battleOn){
                 turn++;
+                playerAlive();
                 System.out.println(currentEnemy.getName() + apostrof( currentEnemy.getName()) + " health: " + colorText(red, "" + currentEnemy.getHealth()) + " | " +
                         userName + apostrof(userName) + " health: " + healthCheck());
                 System.out.println("\nTurn " + turn);
                 System.out.print("Attack, Items, Flee: ");
-                switch(parser.battleMenu()){
-                    case "attack":
-                        System.out.println(colorText(white,userName + " attacks " + currentEnemy.getName() + " with " + player.getCurrentWeapon().getName()));
-                        System.out.println(colorText(white,"Damage Done: " + player.getCurrentWeapon().getDamage()));
-                        player.attack(currentEnemy);
-                        checkWeapon();
-                        break;
-                    case "items":
-                        System.out.println("Use/Throw/Eat (item)");
-                        if(!useItemFight()) {
-                            System.out.println(userName + " does nothing?");
-                            System.out.println(currentEnemy + " thinks " + userName +  " is up to something and stands on guard");
-                            break;
-                        }
-                        break;
-                    case "flee":
-                        battleOn=false;
-                        break;
+                String action = parser.battleMenu();
+
+                if(action.equals("attack")){
+                    System.out.println(colorText(white,userName + " attacks " + currentEnemy.getName() + " with " + player.getCurrentWeapon().getName()));
+                    System.out.println(colorText(white,"Damage Done: " + player.getCurrentWeapon().getDamage()));
+                    player.attack(currentEnemy);
+                    checkWeapon();
+                    if(enemyAlive()) {
+                        enemyAttack();
+                    }
                 }
+                else if(action.equals("items")){
+                    System.out.println("Use/Throw/Eat (item)");
+                    if(!useItemFight()) {
+                        System.out.println(userName + " does nothing?");
+                        System.out.println(currentEnemy + " thinks " + userName + " is up to something and stands on guard");
+                    } else {
+                        enemyAttack();
+                    }
+                }
+                else if(action.equals("flee")){
+                    System.out.println(userName + " flees from the fight");
+                    battleOn=false;
+                }
+
                 if(player.getCurrentHealth()<=0){
                     System.out.println(colorText(red,userName + " dies..."));
                     System.exit(0);
                     battleOn=false;
                 }
-                if(currentEnemy.getHealth()<=0){
-                    System.out.println(colorText(yellow,currentEnemy.getName() + ": " + currentEnemy.getEnemyDeathLine()));
-                    System.out.println(colorText(green, userName + " is victorious!"));
-                    player.getCurrentRoom().enemyDeath(currentEnemy);
-                    System.out.println(colorText(green,currentEnemy.getName() + " drops " + currentEnemy.getLoot().getName()));
-                    currentEnemy=null;
-                    battleOn=false;
+                if(currentEnemy==null){
+                    return;
                 }
-                enemyAttack();
             }
         }
         else {
@@ -270,6 +271,24 @@ public class Game {
     }
     //Use
     //attack
+    public boolean enemyAlive(){
+        if(currentEnemy.getHealth()<=0){
+            System.out.println(colorText(yellow,currentEnemy.getName() + ": " + currentEnemy.getEnemyDeathLine()));
+            System.out.println(colorText(green, userName + " is victorious!"));
+            player.getCurrentRoom().enemyDeath(currentEnemy);
+            System.out.println(colorText(green,currentEnemy.getName() + " drops " + currentEnemy.getLoot().getName()));
+            currentEnemy=null;
+            return false;
+        }
+        return true;
+    }
+    public void playerAlive(){
+        if(player.getCurrentHealth()<=0){
+            System.out.println(colorText(red,userName + " dies..."));
+            System.exit(0);
+        }
+
+    }
     public void enemyAttack(){
         if(currentEnemy==null){
             return;

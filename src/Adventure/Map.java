@@ -29,23 +29,24 @@ public class Map {
             "\nYou gain 100 Health");
     private final Items rehab = new Item("Rehab Ticket", "rehabticket", 1, "A sudden responsbility falls upon you, drug dealers must fear you now");
     //Food:
-    private final Items burger = new Food("Cheese Burger","burger",5,20);
-    private final Items food2 = new Food("Food 2","food2",4,-15);
+    private final Items burger = new Food("Cheese Burger","burger",5,200);
+    private final Items food2 = new Food("Slimey Burger", "slimeburger",4,-15);
     private final Items vodka = new Food("Bottle of Vodka","vodka",5,-25,50);
     private final Items badBurger = new Food("Cheese Burger","burger",4,-20);
     //Weapons:
     Items hands = new MeleeWeapon("Nothing", "barehanded",0,1);
     Items stick = new MeleeWeapon("Stick","stick",1,5);
     Items sword = new MeleeWeapon("Sharp Sword","sword",5,25);
-    Items gun = new ShootingWeapon("Gun","gun",2,30,1);
+    Items gun = new ShootingWeapon("Gun","gun",2,100,10);
     Items situationCard = new ShootingWeapon("Get out of sticky situation card","situationcard",10,100000,1);
 
     //MobWeapons:
     Items policeBaton = new MeleeWeapon("Police Stick","policestick",5,50);
+    Items peacefulBaton = new MeleeWeapon("Police Stick","peacefulstick",5,15);
     Items scolding = new MeleeWeapon("A Scolding","scolding",0,1000);
     Items emptyFlask = new MeleeWeapon("An empty beer bottle", "emptybottle",5,5);
     //Enemies
-    Enemy slime = new Enemy("A Slime", "slime", "A green gooey Slime","blub blub","Blub Blub :(", 250, stick, stick);
+    Enemy slime = new Enemy("A Slime", "slime", "A green gooey Slime","blub blub","Blub Blub :(", 250, stick, food2);
     Enemy hooligan = new Enemy("Football Hooligan", "hooligan",
             "Watcher of football, carrier of high alcohol levels and bringer of destruction","FOOTBALL ORALE","I gotta puke",
             100,emptyFlask,vodka);
@@ -95,16 +96,13 @@ public class Map {
         room1.addItem(sword);
         room1.addItem(gun);
         room6.addItem(rehab);
+        room9.addItem(badBurger);
+        room7.addItem(burger);
     }
     private void putEnemies(){
         room1.addEnemy(slime);
-        room1.addEnemy(slime);
         room4.addEnemy(officer);
         room3.addEnemy(aunt);
-        room8.addEnemy(druggie);
-        room8.addEnemy(druggie);
-        room8.addEnemy(druggie);
-        room8.addEnemy(druggie);
         room8.addEnemy(druggie);
         room5.addEnemy(drugDealer);
     }

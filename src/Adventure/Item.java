@@ -10,18 +10,11 @@ public class Item extends Items {
 
     @Override
     public String useItem(Game game) {
-        if(getNameID().equalsIgnoreCase("rock")){
-
-        }
-        if(getNameID().equalsIgnoreCase("idcard")){
-        }
-        if(getNameID().equalsIgnoreCase("phone")){
-        }
         if(getNameID().equalsIgnoreCase("key")){
             game.map.defeatAunt();
         }
         if(getNameID().equalsIgnoreCase("mask")){
-            game.map.officer.setWeapon(game.map.stick);
+            game.map.officer.setWeapon(game.map.peacefulBaton);
             game.map.officer.setHealth(200);
         }
         if(getNameID().equalsIgnoreCase("cocaine")){
