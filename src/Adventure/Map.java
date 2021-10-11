@@ -15,21 +15,36 @@ public class Map {
     public Items getStartItem(){
         return hands;
     }
+    public void defeatAunt(){
+        room3.setEast(room10);
+
+    }
 
     //Items:
-    private final Items item1 = new Item("Item 1","item1",5);
-    private final Items item2 = new Item("Item 2","item2",5);
-    private final Items item3 = new Item("Item 3","item3",5);
+    private final Items item1 = new Item("Magnificent Rock","rock",5);
+    private final Items item2 = new Item("ID Card","idcard",5);
+    private final Items item3 = new Item("Mobile Phone","phone",5);
+    private final Items item4 = new Item("Home Keys","key",5);
     //Food:
-    private final Items food1 = new Food("Food 1","food1",2,15);
+    private final Items food1 = new Food("Cheese Burger","burger",5,20);
     private final Items food2 = new Food("Food 2","food2",4,-15);
+    private final Items food3 = new Food("Bottle of Vodka","vodka",5,-25,50);
+    private final Items food4 = new Food("Cheese Burger","burger",4,-20);
     //Weapons:
-    private final Items hands = new MeleeWeapon("Your hands", "hands",0,100);
-    private final Items sword = new MeleeWeapon("A Sharp Sword","sword",5,25);
-    private final Items gun = new ShootingWeapon("A Gun","gun",2,30,12);
-    private final Items stick = new MeleeWeapon("A stick","stick",1,5);
+    private final Items hands = new MeleeWeapon("Your hands", "hands",0,1);
+    private final Items sword = new MeleeWeapon("Sharp Sword","sword",5,25);
+    private final Items gun = new ShootingWeapon("Gun","gun",2,30,12);
+    //MobWeapons:
+    private final Items situationCard = new ShootingWeapon("Get out of sticky situation card","situationcard",10,100000,1);
+    private final Items policeBaton = new MeleeWeapon("Police Stick","policestick",5,50);
+    private final Items stick = new MeleeWeapon("Stick","stick",1,5);
+    private final Items scolding = new MeleeWeapon("A Scolding","scolding",0,1000);
     //Enemies
-    private final Enemy slime = new Enemy("A Slime", "slime", "wA green gooey Slime", 250, stick);
+    private final Enemy slime = new Enemy("A Slime", "slime", "A green gooey Slime","blub blub","Blub Blub :(", 250, stick, stick);
+    private final Enemy officer = new Enemy("Police Officer","officer","Upholder of the law, strong brave and furious",
+            "Taste the power of justice", ":0", 1000,policeBaton,situationCard);
+    private final Enemy aunt = new Enemy("Your aunt","aunt", "Your aunt, the guardian of the front of your home... She seems invincible",
+            "Where were you last night? Does my sister know you were out?","Here, i'll trust you are telling the truth",100000,scolding,item4);
     //Rooms:
     //  1 = 2 = 3 = 10
     //  |   X   |
@@ -45,6 +60,7 @@ public class Map {
     private final Room room7 = new Room("Border", "What countries lies beyond the border? No one seems to know or ask");
     private final Room room8 = new Room("Cocaine Street", "A place publicly known for it's illegalities, a place of adventure and mischief");
     private final Room room9 = new Room("Bench by a lake", "The best place to take a sleeper when the road home is mystery");
+    private final Room room10 = new Room("Home", "Your home, you can barely recognise it");
     //WorldBuilding
     private void createMap(){
         room1.setEast(room2);
@@ -67,6 +83,8 @@ public class Map {
     private void putEnemies(){
         room1.addEnemy(slime);
         room1.addEnemy(slime);
+        room4.addEnemy(officer);
+        room3.addEnemy(aunt);
     }
 
 }

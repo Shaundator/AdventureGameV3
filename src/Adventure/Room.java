@@ -26,7 +26,7 @@ public class Room {
         return null;
     }
     public void enemyDeath(Enemy deadEnemy){
-        roomItems.add(deadEnemy.getWeapon());
+        roomItems.add(deadEnemy.getLoot());
         enemies.remove(deadEnemy);
     }
 

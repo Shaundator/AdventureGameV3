@@ -7,8 +7,9 @@ public class Player {
     private Room currentRoom;
     private int health;
     private int currentHealth;
+    private int bonusDamage;
     private Items currentWeapon;
-    private ArrayList<Items> inventory = new ArrayList<>();
+    private final ArrayList<Items> inventory = new ArrayList<>();
 
     public Player(String name, int health){
         this.name=name;
@@ -133,6 +134,13 @@ public class Player {
     public void setCurrentHealth(int currentHealth) {
         this.currentHealth = currentHealth;
     }
+    public int getBonusDamage(){
+        return bonusDamage;
+    }
+    public void setBonusDamage(int bonusDamage) {
+        this.bonusDamage = bonusDamage;
+    }
+
     public Items getCurrentWeapon() {
         return currentWeapon;
     }
