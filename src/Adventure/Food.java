@@ -35,8 +35,6 @@ public class Food extends Items {
         return 0;
     }
 
-
-
     @Override
     public boolean useCheck() {
         return false;
