@@ -14,8 +14,17 @@ public class Food extends Items {
         this.bonusDamage=bonusDamage;
     }
 
+
     @Override
-    public void useItem() {
+    public void useWeapon() {
+    }
+    @Override
+    public boolean checkValid() {
+        return false;
+    }
+    @Override
+    public String useItem(Player player) {
+        return "null";
     }
     @Override
     public int consumeFood() {
@@ -24,6 +33,13 @@ public class Food extends Items {
     @Override
     public int getDamage() {
         return 0;
+    }
+
+
+
+    @Override
+    public boolean useCheck() {
+        return false;
     }
     @Override
     public boolean weaponCheck() {

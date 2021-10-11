@@ -18,6 +18,14 @@ public class Player {
     }
 
     //General
+    public boolean useItem(Items item){
+        return item.useCheck();
+    }
+    public String useUseItem(Items item){
+        inventory.remove(item);
+        return item.useItem(this);
+
+    }
     public void takeItem(Items item){
         inventory.add(item);
         currentRoom.removeItem(item);
@@ -33,6 +41,7 @@ public class Player {
         } else {
             inventory.add(currentWeapon);
             currentWeapon=item;
+            destroyItem(currentWeapon);
         }
     }
     public void destroyItem(Items item){
@@ -46,10 +55,14 @@ public class Player {
         }
         return null;
     }
+    public void addHealth(int health){
+        this.health+=health;
+    }
 
     //Battle
     public void attack(Enemy enemy){
         int attackResult = enemy.getHealth() - currentWeapon.getDamage();
+        currentWeapon.useWeapon();
         enemy.setHealth(attackResult);
     }
     public void takeDamage(Enemy enemy){

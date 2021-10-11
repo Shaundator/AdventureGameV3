@@ -11,11 +11,14 @@ public abstract class Items {
         this.weight=weight;
     }
 
+    public abstract boolean checkValid();
+    public abstract void useWeapon();
+    public abstract boolean useCheck();
     public abstract boolean foodCheck();
     public abstract boolean weaponCheck();
     public abstract int consumeFood();
     public abstract int getDamage();
-    public abstract void useItem();
+    public abstract String useItem(Player player);
 
     public String getName(){
         return name;
@@ -26,4 +29,5 @@ public abstract class Items {
     public int getWeight() {
         return weight;
     }
+    public abstract String toString();
 }

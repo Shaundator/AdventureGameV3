@@ -68,7 +68,8 @@ public class Game {
     }
     public void inventory() {
         if(player.getCurrentWeapon()!=null){
-            System.out.println(userName + " is holding " + player.getCurrentWeapon().getName() + " as a weapon");
+            System.out.println(userName + " is holding " + player.getCurrentWeapon().getName().toLowerCase() + " as a weapon");
+            System.out.println(player.getCurrentWeapon());
         }
         System.out.println(userName + " checks their inventory");
         System.out.println("Items:");
@@ -78,7 +79,7 @@ public class Game {
             System.out.println(colorText(red, inventory));
         } else {
             for (int i = 0; i < player.getInventory().size(); i++) {
-                inventory += addArticleCap(player.getInventory().get(i)) + player.getInventory().get(i).getName() + "(" + player.getInventory().get(i).getNameID() + ")";
+                inventory += addArticleCap(player.getInventory().get(i).getName()) + "(" + player.getInventory().get(i).getNameID() + ")";
                 if (i < player.getInventory().size()) {
                     inventory += "\n";
                 }
@@ -110,6 +111,7 @@ public class Game {
                         System.out.println(colorText(white,"Damage Done: " + player.getCurrentWeapon().getDamage()));
                         player.attack(currentEnemy);
                         enemyAttack();
+                        checkWeapon();
                         break;
                     case "items":
                         System.out.println("Use/Throw/Eat (item)");
@@ -133,6 +135,7 @@ public class Game {
                     System.out.println(currentEnemy.getEnemyDeathLine());
                     System.out.println(colorText(green, userName + " is victorious!"));
                     player.getCurrentRoom().enemyDeath(currentEnemy);
+                    System.out.println(colorText(green,currentEnemy.getName() + " drops " + currentEnemy.getLoot().getName()));
                     currentEnemy=null;
                     battleOn=false;
                 }
@@ -140,6 +143,20 @@ public class Game {
         }
         else {
             System.out.println("No such enemy");
+        }
+    }
+    public void use(String item){
+        Items tempItem = player.findItem(item);
+
+        if(tempItem != null) {
+            if(player.useItem(tempItem)) {
+                System.out.println(colorText(yellow,userName + " uses " + tempItem.getName()));
+                System.out.println(player.useUseItem(tempItem));
+            } else {
+                System.out.println(colorText(red, "this item cannot be used"));
+            }
+        } else {
+            System.out.println(colorText(red, userName + apostrof(userName) + " inventory does not contain " + item));
         }
     }
     public void equip(String item){
@@ -224,7 +241,7 @@ public class Game {
         }
         String result = "";
         for(int i = 0; i < player.getCurrentRoom().getRoomItems().size(); i++){
-            result += "\n" + addArticleCap(player.getCurrentRoom().getRoomItems().get(i)) +
+            result += "\n" + addArticleCap(player.getCurrentRoom().getRoomItems().get(i).getName()) +
                     "("+player.getCurrentRoom().getRoomItems().get(i).getNameID()+")";
         }
         System.out.println(colorText(blue,result));
@@ -241,6 +258,10 @@ public class Game {
             }
             System.out.println(colorText(red,enemiesInRoom));
         }
+    }
+    //Use
+    public void useItem(Items item){
+
     }
     //attack
     public void enemyAttack(){
@@ -321,6 +342,14 @@ public class Game {
         map.createWorld();
         player.setCurrentRoom(map.getStartRoom());
     }
+    public void checkWeapon(){
+        if(!player.getCurrentWeapon().checkValid()){
+            System.out.println(colorText(red,player.getCurrentWeapon().getName() + " can not be used anymore..." +
+                    userName + " throws it away"));
+            player.setCurrentWeapon(player.findItem("barehanded"));
+            player.destroyItem(player.findItem("barehanded"));
+        }
+    }
 
     //Interface
     public void commandScanner(String command){
@@ -349,6 +378,9 @@ public class Game {
                 break;
             case "health":
                 health();
+                break;
+            case "use":
+                use(command2);
                 break;
             case "take":
                 take(command2);
@@ -389,11 +421,11 @@ public class Game {
             default -> "a " + item.getName();
         };
     }
-    public String addArticleCap(Items item){
-        char letter = item.getName().toLowerCase().charAt(0);
+    public String addArticleCap(String word){
+        char letter = word.toLowerCase().charAt(0);
         return switch (letter) {
-            case ('a'), ('e'), ('i'), ('o'), ('y'), ('u') -> "An " + item.getName();
-            default -> "A " + item.getName();
+            case ('a'), ('e'), ('i'), ('o'), ('y'), ('u') -> "An " + word;
+            default -> "A " + word;
         };
     }
     public String inOrAtThe(){
