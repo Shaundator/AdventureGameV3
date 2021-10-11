@@ -23,7 +23,7 @@ public class Food extends Items {
         return false;
     }
     @Override
-    public String useItem(Player player) {
+    public String useItem(Game game) {
         return "null";
     }
     @Override
@@ -48,5 +48,13 @@ public class Food extends Items {
     @Override
     public boolean foodCheck() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Food{" +
+                "healthPoints=" + healthPoints +
+                ", bonusDamage=" + bonusDamage +
+                '}';
     }
 }

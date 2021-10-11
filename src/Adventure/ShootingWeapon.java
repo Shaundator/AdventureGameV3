@@ -1,11 +1,13 @@
 package Adventure;
 
 public class ShootingWeapon extends Weapon{
+    private final int fullAmmo;
     private int ammo;
 
     public ShootingWeapon(String name, String nameID, int weight, int damage, int ammo){
         super(name, nameID, weight, damage);
         this.ammo=ammo;
+        fullAmmo=ammo;
     }
     public int getAmmo() {
         return ammo;
@@ -31,12 +33,17 @@ public class ShootingWeapon extends Weapon{
     }
 
     @Override
-    public String useItem(Player player) {
+    public String useItem(Game game) {
         return null;
     }
     @Override
     public int getDamage() {
         return super.getDamage();
     }
-    pub
+
+    @Override
+    public String toString() {
+        return "Weapon Type: Shooting Weapon" +
+                "\nAmmo: " + ammo + "/" + fullAmmo;
+    }
 }

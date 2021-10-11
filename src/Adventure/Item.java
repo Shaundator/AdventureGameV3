@@ -9,19 +9,26 @@ public class Item extends Items {
     }
 
     @Override
-    public String useItem(Player player) {
+    public String useItem(Game game) {
         if(getNameID().equalsIgnoreCase("rock")){
+
         }
         if(getNameID().equalsIgnoreCase("idcard")){
         }
         if(getNameID().equalsIgnoreCase("phone")){
         }
         if(getNameID().equalsIgnoreCase("key")){
+            game.map.defeatAunt();
         }
         if(getNameID().equalsIgnoreCase("mask")){
+            game.map.officer.setWeapon(game.map.stick);
+            game.map.officer.setHealth(200);
         }
         if(getNameID().equalsIgnoreCase("cocaine")){
-            player.addHealth(100);
+            game.player.addHealth(100);
+        }
+        if(getNameID().equalsIgnoreCase("rehabticket")){
+            game.map.drugDealer.setHealth(10);
         }
         return use;
     }
@@ -55,5 +62,12 @@ public class Item extends Items {
     @Override
     public boolean weaponCheck() {
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "use='" + use + '\'' +
+                '}';
     }
 }

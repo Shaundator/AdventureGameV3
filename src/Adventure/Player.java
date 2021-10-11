@@ -21,9 +21,8 @@ public class Player {
     public boolean useItem(Items item){
         return item.useCheck();
     }
-    public String useUseItem(Items item){
+    public void useUseItem(Items item){
         inventory.remove(item);
-        return item.useItem(this);
 
     }
     public void takeItem(Items item){

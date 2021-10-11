@@ -18,7 +18,7 @@ public abstract class Items {
     public abstract boolean weaponCheck();
     public abstract int consumeFood();
     public abstract int getDamage();
-    public abstract String useItem(Player player);
+    public abstract String useItem(Game game);
 
     public String getName(){
         return name;

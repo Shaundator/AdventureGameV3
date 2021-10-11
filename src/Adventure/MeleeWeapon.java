@@ -17,7 +17,7 @@ public class MeleeWeapon extends Weapon {
     public void useWeapon() {
     }
     @Override
-    public String useItem(Player player) {
+    public String useItem(Game game) {
         return null;
     }
     @Override
@@ -32,5 +32,10 @@ public class MeleeWeapon extends Weapon {
     @Override
     public boolean weaponCheck() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Weapons Type: Melee Weapon";
     }
 }

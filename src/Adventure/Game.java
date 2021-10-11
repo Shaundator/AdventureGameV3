@@ -2,12 +2,14 @@ package Adventure;
 
 public class Game {
     private final String userName;
+    private final String gender;
     Parser parser = new Parser();
     Map map = new Map();
     Player player;
     Enemy currentEnemy;
-    public Game(String userName){
+    public Game(String userName, String gender){
         this.userName=userName;
+        this.gender=gender;
     }
 
     public void startGame(){
@@ -15,11 +17,16 @@ public class Game {
         startText();
         boolean gameOn = true;
         while(gameOn) {
-            System.out.print("Command: ");
-            String command = parser.commandMenu();
-            commandScanner(command);
+            if(player.getCurrentRoom()!=map.room10){
+                System.out.print("Command: ");
+                String command = parser.commandMenu();
+                commandScanner(command);
+            } else {
+                System.out.println(colorText(cyan, userName + " is finally home"));
+                gameOn=false;
+            }
         }
-        System.out.println("End of the game");
+        System.out.println(colorText(cyan, "And so, our hero finally arrived home"));
     }
 
     //Menu
@@ -58,21 +65,22 @@ public class Game {
         }
     }
     public void look(){
-        System.out.println(userName + " looks around");
-        System.out.println(userName + " is located at " + player.getCurrentRoom().getName());
+        System.out.println("\nLocation:");
+        System.out.println(colorText(cyan, "This is the " + player.getCurrentRoom().getName()));
         System.out.println(colorText(cyan,player.getCurrentRoom().getDescription()));
-        System.out.print("\nItems in " + player.getCurrentRoom().getName() + ": ");
+        System.out.println(colorText(cyan, heOrShe() + " takes a look around to see if anything is laying around the " + player.getCurrentRoom().getName().toLowerCase() + ": "));
+        System.out.print("Items:");
         roomItems();
-        System.out.println("\nUpon further inspection, " + userName + " tries to see if there are anyone they can talk with");
+        System.out.println("\nupon further inspection, " + userName + " tries to see if there are anyone " + heOrShe() + " can talk with");
         roomNPCs();
     }
     public void inventory() {
         if(player.getCurrentWeapon()!=null){
-            System.out.println(userName + " is holding " + player.getCurrentWeapon().getName().toLowerCase() + " as a weapon");
-            System.out.println(player.getCurrentWeapon());
+            System.out.println(userName + apostrof(userName) + " weapon: " + "\n" +
+                    colorText(blue,"Weapon Name: " + player.getCurrentWeapon().getName()));
+            System.out.println(colorText(blue, "" + player.getCurrentWeapon()));
         }
-        System.out.println(userName + " checks their inventory");
-        System.out.println("Items:");
+        System.out.println("Inventory:");
         String inventory = "";
         if (player.getInventory().size() == 0) {
             inventory += userName + apostrof(userName) + " inventory is empty";
@@ -101,25 +109,20 @@ public class Game {
                 System.out.println(currentEnemy.getName() + apostrof( currentEnemy.getName()) + " health: " + colorText(red, "" + currentEnemy.getHealth()) + " | " +
                         userName + apostrof(userName) + " health: " + healthCheck());
                 System.out.println("\nTurn " + turn);
-                if(player.getHealth()<=0){
-                    System.out.println(colorText(red,userName + " dies..."));
-                }
                 System.out.print("Attack, Items, Flee: ");
                 switch(parser.battleMenu()){
                     case "attack":
                         System.out.println(colorText(white,userName + " attacks " + currentEnemy.getName() + " with " + player.getCurrentWeapon().getName()));
                         System.out.println(colorText(white,"Damage Done: " + player.getCurrentWeapon().getDamage()));
                         player.attack(currentEnemy);
-                        enemyAttack();
                         checkWeapon();
                         break;
                     case "items":
                         System.out.println("Use/Throw/Eat (item)");
-                        if(useItemFight()) {
-                            enemyAttack();
-                        } else {
+                        if(!useItemFight()) {
                             System.out.println(userName + " does nothing?");
-                            System.out.println(currentEnemy + " thinks they are up to something and stands on guard");
+                            System.out.println(currentEnemy + " thinks " + userName +  " is up to something and stands on guard");
+                            break;
                         }
                         break;
                     case "flee":
@@ -132,13 +135,14 @@ public class Game {
                     battleOn=false;
                 }
                 if(currentEnemy.getHealth()<=0){
-                    System.out.println(currentEnemy.getEnemyDeathLine());
+                    System.out.println(colorText(yellow,currentEnemy.getName() + ": " + currentEnemy.getEnemyDeathLine()));
                     System.out.println(colorText(green, userName + " is victorious!"));
                     player.getCurrentRoom().enemyDeath(currentEnemy);
                     System.out.println(colorText(green,currentEnemy.getName() + " drops " + currentEnemy.getLoot().getName()));
                     currentEnemy=null;
                     battleOn=false;
                 }
+                enemyAttack();
             }
         }
         else {
@@ -150,8 +154,10 @@ public class Game {
 
         if(tempItem != null) {
             if(player.useItem(tempItem)) {
-                System.out.println(colorText(yellow,userName + " uses " + tempItem.getName()));
-                System.out.println(player.useUseItem(tempItem));
+                System.out.println(colorText(yellow,userName + " uses the " + tempItem.getName().toLowerCase()));
+                player.useUseItem(tempItem);
+                System.out.println(colorText(cyan,tempItem.useItem(this)));
+
             } else {
                 System.out.println(colorText(red, "this item cannot be used"));
             }
@@ -162,7 +168,7 @@ public class Game {
     public void equip(String item){
         if(player.findItem(item)!=null){
             if(player.findItem(item).weaponCheck()){
-                System.out.println(colorText(blue,userName + " equips " + player.findItem(item).getName()));
+                System.out.println(colorText(green,userName + " equips the " + player.findItem(item).getName().toLowerCase()));
                 player.equipWeapon(player.findItem(item));
             } else {
                 System.out.println(colorText(red,player.findItem(item).getName() + " is not a weapon"));
@@ -176,7 +182,7 @@ public class Game {
             return;
         }
         player.takeItem(tempItem);
-        System.out.println(colorText(green,userName + " takes " + tempItem.getName()));
+        System.out.println(colorText(green,userName + " takes the " + tempItem.getName().toLowerCase()));
     }
     public void drop(String item){
         Items tempItem = player.findItem(item);
@@ -185,13 +191,13 @@ public class Game {
             return;
         }
         player.dropItem(tempItem);
-        System.out.println(colorText(green,userName + " drops " + tempItem.getName()));
+        System.out.println(colorText(green,userName + " drops the " + tempItem.getName().toLowerCase()));
     }
     public void eat(String item) {
         if (player.findItem(item) != null) {
             if (player.eatItem(player.findItem(item))){
                 player.eatFood(player.findItem(item));
-                System.out.println(userName + " eats " + player.findItem(item).getName());
+                System.out.println(userName + " eats " + addArticle(player.findItem(item)) + player.findItem(item).getName().toLowerCase());
                 player.destroyItem(player.findItem(item));
             } else {
                 System.out.println(colorText(red,player.findItem(item).getName() + " cannot be eaten"));
@@ -205,18 +211,21 @@ public class Game {
                 Commands:
                 Go: North, East, South, West
                 Look: Inspect current location
+                Attack: Attack an enemy
                 Inventory: See inventory
                 Use: Use an item
+                Eat: Eat an item
+                Equip: Equip an item
                 Take: Pick up an item from current location
                 Drop: Drop an item on current location
                 Help: See commands
-                Restart: Restart Game
+                Restart: Restart Game(Not there yet)
                 Exit: Exit the Game
                 """));
     }
     public void exit(){
         System.out.println(colorText(red,"A somber night, for death fell upon our hero, " + userName + apostrof(userName) + " life...\n" +
-                "May they rest in peace"));
+                "May " + heOrShe() + " rest in peace"));
         System.exit(0);
     }
 
@@ -224,7 +233,7 @@ public class Game {
 
     //go
     public void travel(String direction){
-        System.out.println(userName + " travels " + direction + " and enters " + player.getCurrentRoom().getName());
+        System.out.println(colorText(cyan,userName + " travels " + direction + " and enters " + player.getCurrentRoom().getName()));
     }
     public void travelNot(String direction){
         System.out.println(colorText(red, "There is no path " + direction + " of " + player.getCurrentRoom().getName()));
@@ -260,11 +269,11 @@ public class Game {
         }
     }
     //Use
-    public void useItem(Items item){
-
-    }
     //attack
     public void enemyAttack(){
+        if(currentEnemy==null){
+            return;
+        }
         System.out.println(colorText(red,currentEnemy.getName() + " is furious!"));
         System.out.println(currentEnemy.getName() + ": " + colorText(yellow,"'"+currentEnemy.getEnemyAttackLine())+"'");
         player.takeDamage(currentEnemy);
@@ -311,14 +320,14 @@ public class Game {
     public void startText(){
         System.out.println("\nWelcome to the journey of the Skejs\n"+
                 colorText(cyan,"The time has come and " + userName + " has done it again..." +
-                        "\nOne bottle turned into many, and in the big city of Skejs our hero has lost his way" +
-                        "\nWe need to get him home before the hour is night, or he will surely start drinking again," +
-                        "\nyou are the only hope of showing him the way or all hope will be lost...") +
-                "\nYou can write 'look' to see the details of " + userName + apostrof(userName) + " current location," +
+                        "\nOne bottle turned into many, and in the big city of Skejs our hero has lost " + hisOrHer() + " way" +
+                        "\nWe need to get "+ himOrHer() +" home before the hour is night, or " + heOrShe() + " will surely start drinking again," +
+                        "\nyou are the only hope of showing " + himOrHer() + " the way or all hope will be lost...") +
+                colorText(white,"\nYou can write 'look' to see the details of " + userName + apostrof(userName) + " current location," +
                 "\nyou can go north, east, south or west to get around."+
-                "\nIf there are any further questions please write 'help'\n"+
-                "\n"+colorText(cyan,"The time is 12:00pm, and our hero " + userName + " finds himself sleeping on a bench"+
-                "\nHe knows where he is, this is " + player.getCurrentRoom().getName()));
+                "\nIf there are any further questions please write 'help'\n") +
+                "\n"+colorText(cyan,"The time is 12:00pm, and our hero " + userName + " finds " + himselfOrHerself() + " sleeping on a bench"+
+                "\n"+ heOrShe() + " knows where " + heOrShe() +" is, this is the " + player.getCurrentRoom().getName()));
 
     }
     public String healthCheck(){
@@ -446,6 +455,27 @@ public class Game {
             return "some";
         }
         return "the";
+    }
+    public String heOrShe(){
+        if(gender.equals("male")){
+            return "he";
+        } else return "she";
+
+    }
+    public String hisOrHer(){
+        if(gender.equals("male")){
+            return "his'";
+        } else return "her";
+    }
+    public String himOrHer(){
+        if(gender.equals("him")){
+            return "him";
+        } else return "her";
+    }
+    public String himselfOrHerself(){
+        if(gender.equals("male")){
+            return "himself";
+        } else return "herself";
     }
 
     //Colors for String
