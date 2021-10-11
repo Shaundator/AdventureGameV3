@@ -20,14 +20,14 @@ public class Map {
     }
 
     //Items:
-    private final Items item1 = new Item("Magnificent Rock","rock",5,"Nothing happens");
-    private final Items item2 = new Item("ID Card","idcard",5,"You are now a legitimate member of the society");
-    private final Items item3 = new Item("Mobile Phone","phone",5,"You call someone for no reason");
-    private final Items item4 = new Item("Home Keys","key",5,"As you pick up the key you recall your home being east of the park");
-    private final Items mask = new Item("A Mask","mask",5,"You put on a mask and no one knows who you are");
-    private final Items cocaine = new Item("Cocaine", "cocaine", 1, "You feel newfound powers surge through your body" +
+    private final Items rock = new Item("Magnificent Rock","rock",5,"Nothing happens");
+    private final Items idCard = new Item("ID Card","idcard",5,"You are now a legitimate member of the society");
+    private final Items phone = new Item("Mobile Phone","phone",5,"You call someone for no reason");
+    private final Items key = new Item("Home Keys","key",5,"As you pick up the key you recall your home being east of the park");
+    private final Items heroStatus = new Item("Hero Status","hero",5,"You are a hero, the police loves you");
+    private final Items vitamin = new Item("Vitamin Supplements", "vitamin", 1, "You feel newfound powers surge through your body" +
             "\nYou gain 100 Health");
-    private final Items rehab = new Item("Rehab Ticket", "rehabticket", 1, "A sudden responsbility falls upon you, drug dealers must fear you now");
+    private final Items justice = new Item("Justice", "justice", 1, "A sudden responsbility falls upon you, drug dealers must fear you now");
     //Food:
     private final Items burger = new Food("Cheese Burger","burger",5,200);
     private final Items food2 = new Food("Slimey Burger", "slimeburger",4,-15);
@@ -50,17 +50,17 @@ public class Map {
     Enemy hooligan = new Enemy("Football Hooligan", "hooligan",
             "Watcher of football, carrier of high alcohol levels and bringer of destruction","FOOTBALL ORALE","I gotta puke",
             100,emptyFlask,vodka);
-    private final Enemy druggie = new Enemy("A Druggie","druggie","Smelly and vile, carrier of addiction and bringer of money",
-            "Why do you look like my mother?","Bad cocaine",100,stick,cocaine);
+    Enemy druggie = new Enemy("A Druggie","druggie","Smelly and vile, carrier of addiction and bringer of money",
+            "Why do you look like my mother?","Bad cocaine",100,stick,vitamin);
 
     //Bosses
     Enemy drugDealer = new Enemy("Your local neighbourhood drug dealer", "drugdealer",
             "Seller of rocks, bringer of stocks. A plague to society and the cousin of fun",
-            "Yo bro how's it hanging u wanna fight?", "Oh no", 300, gun, mask);
+            "Yo bro how's it hanging u wanna fight?", "Oh no", 300, gun, heroStatus);
     Enemy officer = new Enemy("Police Officer","officer","Upholder of the law, strong brave and furious",
             "Taste the power of justice", ":0", 1000, policeBaton, situationCard);
     Enemy aunt = new Enemy("Your aunt","aunt", "Your aunt, the guardian of the front of your home... She seems invincible",
-            "Where were you last night? Does my sister know you were out?","Here, i'll trust you are telling the truth",100000,scolding,item4);
+            "Where were you last night? Does my sister know you were out?","Here, i'll trust you are telling the truth",100000,scolding,key);
     //Rooms:
     //  1 = 2 = 3 = 10
     //  |   X   |
@@ -90,12 +90,12 @@ public class Map {
         room8.setEast(room9);
     }
     private void putItems(){
-        room1.addItem(item1);
-        room1.addItem(item3);
-        room2.addItem(item2);
+        room1.addItem(rock);
+        room1.addItem(phone);
+        room2.addItem(idCard);
         room1.addItem(sword);
         room1.addItem(gun);
-        room6.addItem(rehab);
+        room6.addItem(justice);
         room9.addItem(badBurger);
         room7.addItem(burger);
     }

@@ -13,14 +13,14 @@ public class Item extends Items {
         if(getNameID().equalsIgnoreCase("key")){
             game.map.defeatAunt();
         }
-        if(getNameID().equalsIgnoreCase("mask")){
+        if(getNameID().equalsIgnoreCase("hero")){
             game.map.officer.setWeapon(game.map.peacefulBaton);
             game.map.officer.setHealth(200);
         }
-        if(getNameID().equalsIgnoreCase("cocaine")){
+        if(getNameID().equalsIgnoreCase("vitamin")){
             game.player.addHealth(100);
         }
-        if(getNameID().equalsIgnoreCase("rehabticket")){
+        if(getNameID().equalsIgnoreCase("justice")){
             game.map.drugDealer.setHealth(10);
         }
         return use;
