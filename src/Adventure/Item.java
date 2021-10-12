@@ -27,6 +27,6 @@ public class Item extends Items {
 
     @Override
     public String toString() {
-        return super.toString() + "Item";
+        return super.toString() + "Item\nUsage: ";
     }
 }

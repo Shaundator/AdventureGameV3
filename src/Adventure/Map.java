@@ -18,8 +18,8 @@ public class Map {
     }
 
     //Items:
-    Items rock = new Item("Magnificent Rock","rock",1,"rock");
-    Items vitamin = new Item("Vitamin Drink","vitamin",2,"vitamin");
+    Items rock = new Item("Magnificent Rock","rock",1,"A rock? Maybe if u use it on someone it will actually do something");
+    Items vitamin = new Item("Vitamin Drink","vitamin",2,"Adds 100 health to total health");
 
     //Weapons:
     Items stick = new MeleeWeapon("Wooden stick","stick",1,5);

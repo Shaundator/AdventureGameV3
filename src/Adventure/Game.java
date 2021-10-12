@@ -205,6 +205,20 @@ public class Game {
             System.out.println(colorText(red, userName + apostrof(userName) + " inventory does not contain " + item));
         }
     }
+    public void inspect(String item){
+        if(player.getCurrentRoom().findItem(item)!=null){
+            System.out.println(player.getCurrentRoom().findItem(item).toString());
+        }
+        if(player.findItem(item)!=null) {
+            System.out.println(player.findItem(item).toString());
+        }
+        if(player.getCurrentRoom().getEnemy(item)!=null){
+            System.out.println(player.getCurrentRoom().getEnemy(item));
+        }
+        else {
+            System.out.println(colorText(red,"invalid item"));
+        }
+    }
     public void help(){
         System.out.println(colorText(white,"""
                 Commands:
@@ -245,9 +259,10 @@ public class Game {
         } else {
             String result = "";
             for(int i = 0; i < player.getCurrentRoom().getRoomItems().size(); i++){
-                result += player.getCurrentRoom().getRoomItems().get(i);
+                result += player.getCurrentRoom().getRoomItems().get(i).getName() + "(" +
+                        player.getCurrentRoom().getRoomItems().get(i).getNameID()+")";
                 if(i<player.getCurrentRoom().getRoomItems().size()-1){
-                    result += "\n\n";
+                    result += "\n";
                 }
             }
             return result;
@@ -259,10 +274,7 @@ public class Game {
         } else {
             String result = "";
             for(int i = 0; i < player.getCurrentRoom().getEnemies().size(); i++){
-                result += player.getCurrentRoom().getEnemies().get(i);
-                if(i<player.getCurrentRoom().getEnemies().size()-1){
-                    result += "\n";
-                }
+                result += player.getCurrentRoom().getEnemies().get(i).getName() + "(" + player.getCurrentRoom().getEnemies().get(i).getNameID() + ")";
                 if(i<player.getCurrentRoom().getEnemies().size()){
                     result += "\n";
                 }
@@ -381,6 +393,9 @@ public class Game {
                 break;
             case "equip":
                 equip(command2);
+                break;
+            case "inspect":
+                inspect(command2);
                 break;
             case "help":
                 help();
