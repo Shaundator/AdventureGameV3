@@ -5,16 +5,19 @@ public class Enemy {
     private final String nameID;
     private String description;
     private final String enemyAttackLine;
+    private final String enemyFleeLine;
     private final String enemyDeathLine;
     private int health;
+    private int currentHealth;
     private Items weapon;
     private Items loot;
 
-    public Enemy(String name, String nameID, String description, String enemyAttackLine, String enemyDeathLine, int health, Items weapon, Items loot){
+    public Enemy(String name, String nameID, String description, String enemyAttackLine,String enemyFleeLine, String enemyDeathLine, int health, Items weapon, Items loot){
         this.name=name;
         this.nameID=nameID;
         this.description=description;
         this.enemyAttackLine=enemyAttackLine;
+        this.enemyFleeLine=enemyFleeLine;
         this.enemyDeathLine=enemyDeathLine;
         this.health=health;
         this.weapon=weapon;
@@ -42,6 +45,9 @@ public class Enemy {
         return enemyAttackLine;
     }
 
+    public String getEnemyFleeLine() {
+        return enemyFleeLine;
+    }
     public String getEnemyDeathLine() {
         return enemyDeathLine;
     }
@@ -51,6 +57,14 @@ public class Enemy {
     }
     public void setHealth(int health) {
         this.health = health;
+    }
+
+    public int getCurrentHealth() {
+        return currentHealth;
+    }
+
+    public void setCurrentHealth(int currentHealth) {
+        this.currentHealth = currentHealth;
     }
     public Items getWeapon(){
         return weapon;
@@ -63,5 +77,11 @@ public class Enemy {
     }
     public void setLoot(Items loot) {
         this.loot = loot;
+    }
+
+    @Override
+    public String toString() {
+        return name + "(" + nameID + ")" +
+                "\n'" + description + "'";
     }
 }

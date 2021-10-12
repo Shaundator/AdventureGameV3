@@ -8,28 +8,12 @@ public abstract class Weapon extends Items {
         this.damage=damage;
     }
 
-    public abstract void useWeapon();
-    public abstract boolean checkValid();
-    @Override
-    public boolean useCheck() {
-        return false;
-    }
-    @Override
-    public boolean weaponCheck() {
-        return true;
-    }
-    @Override
-    public boolean foodCheck() {
-        return false;
-    }
-
-    @Override
     public int getDamage() {
         return damage;
     }
 
     @Override
     public String toString() {
-        return "Type: Weapon\nDamage: " + damage;
+        return super.toString() + "Weapon\nDamage: " + damage + ", Type: ";
     }
 }

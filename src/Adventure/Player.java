@@ -7,7 +7,6 @@ public class Player {
     private Room currentRoom;
     private int health;
     private int currentHealth;
-    private int bonusDamage;
     private Items currentWeapon;
     private final ArrayList<Items> inventory = new ArrayList<>();
 
@@ -18,13 +17,6 @@ public class Player {
     }
 
     //General
-    public boolean useItem(Items item){
-        return item.useCheck();
-    }
-    public void useUseItem(Items item){
-        inventory.remove(item);
-
-    }
     public void takeItem(Items item){
         inventory.add(item);
         currentRoom.removeItem(item);
@@ -35,7 +27,7 @@ public class Player {
     }
     public void equipWeapon(Items item){
         if(currentWeapon==null) {
-            currentWeapon = item;
+            setCurrentWeapon(item);
             inventory.remove(item);
         } else {
             inventory.add(currentWeapon);
@@ -59,22 +51,18 @@ public class Player {
     }
 
     //Battle
-    public void attack(Enemy enemy){
-        int attackResult = enemy.getHealth() - currentWeapon.getDamage();
-        currentWeapon.useWeapon();
+    public void attack(Enemy enemy) {
+        int attackResult = enemy.getHealth() - ((Weapon) currentWeapon).getDamage();
         enemy.setHealth(attackResult);
     }
     public void takeDamage(Enemy enemy){
-        int attackResult = currentHealth - enemy.getWeapon().getDamage();
+        int attackResult = currentHealth - ((Weapon) enemy.getWeapon()).getDamage();
         setCurrentHealth(attackResult);
     }
 
     //Food
-    public boolean eatItem(Items item){
-        return item.foodCheck();
-    }
     public void eatFood(Items item){
-        currentHealth += item.consumeFood();
+        currentHealth += (((Food) item).getHealthPoints());
         if(currentHealth>health){
             currentHealth=health;
         }
@@ -146,13 +134,6 @@ public class Player {
     public void setCurrentHealth(int currentHealth) {
         this.currentHealth = currentHealth;
     }
-    public int getBonusDamage(){
-        return bonusDamage;
-    }
-    public void setBonusDamage(int bonusDamage) {
-        this.bonusDamage = bonusDamage;
-    }
-
     public Items getCurrentWeapon() {
         return currentWeapon;
     }

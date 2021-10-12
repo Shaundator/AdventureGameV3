@@ -8,109 +8,109 @@ public class Map {
         createMap();
         putItems();
         putEnemies();
+        putBosses();
     }
     public Room getStartRoom(){
-        return room1;
-    }
-    public Items getStartItem(){
-        return hands;
+        return subway_station;
     }
     public void defeatAunt(){
-        room3.setEast(room10);
+        familiar_park.setEast(home);
     }
 
     //Items:
-    private final Items rock = new Item("Magnificent Rock","rock",5,"Nothing happens");
-    private final Items idCard = new Item("ID Card","idcard",5,"You are now a legitimate member of the society");
-    private final Items phone = new Item("Mobile Phone","phone",5,"You call someone for no reason");
-    private final Items key = new Item("Home Keys","key",5,"As you pick up the key you recall your home being east of the park");
-    private final Items heroStatus = new Item("Hero Status","hero",5,"You are a hero, the police loves you");
-    private final Items vitamin = new Item("Vitamin Supplements", "vitamin", 1, "You feel newfound powers surge through your body" +
-            "\nYou gain 100 Health");
-    private final Items justice = new Item("Justice", "justice", 1, "A sudden responsbility falls upon you, drug dealers must fear you now");
-    //Food:
-    private final Items burger = new Food("Cheese Burger","burger",5,200);
-    private final Items food2 = new Food("Slimey Burger", "slimeburger",4,-15);
-    private final Items vodka = new Food("Bottle of Vodka","vodka",5,-25,50);
-    private final Items badBurger = new Food("Cheese Burger","burger",4,-20);
+
+
     //Weapons:
-    Items hands = new MeleeWeapon("Nothing", "barehanded",0,1);
-    Items stick = new MeleeWeapon("Stick","stick",1,5);
-    Items sword = new MeleeWeapon("Sharp Sword","sword",5,25);
-    Items gun = new ShootingWeapon("Gun","gun",2,100,10);
-    Items antiAunt = new Item("Good Excuse","excuse",0,"You make up a good excuse");
-    Items situationCard = new ShootingWeapon("Get out of sticky situation card","situationcard",10,100000,1);
+    Items stick = new MeleeWeapon("Wooden stick","stick",1,5);
+    Items baseball_bat = new MeleeWeapon("Baseball Bat","bat",5,15);
+    Items knife = new MeleeWeapon("Metal knife", "knife",2,25);
+    Items machete = new MeleeWeapon("Machete","machete",5,50);
+    Items gun = new ShootingWeapon("Gun","gun",10,100,5);
 
-    //MobWeapons:
-    Items policeBaton = new MeleeWeapon("Police Stick","policestick",5,50);
-    Items peacefulBaton = new MeleeWeapon("Police Stick","peacefulstick",5,15);
-    Items scolding = new MeleeWeapon("A Scolding","scolding",0,1000);
-    Items emptyFlask = new MeleeWeapon("An empty beer bottle", "emptybottle",5,5);
-    Items meanWords = new MeleeWeapon("Mean words that hurts the heart", "meanwords",0,25);
-    //Enemies
-    Enemy slime = new Enemy("A Slime", "slime", "A green gooey Slime","blub blub","Blub Blub :(", 250, stick, food2);
-    Enemy hooligan = new Enemy("Football Hooligan", "hooligan",
-            "Watcher of football, carrier of high alcohol levels and bringer of destruction","FOOTBALL ORALE","I gotta puke",
-            100,emptyFlask,vodka);
-    Enemy druggie = new Enemy("A Druggie","druggie","Smelly and vile, carrier of addiction and bringer of money",
-            "Why do you look like my mother?","Bad cocaine",100,stick,vitamin);
-    Enemy bully = new Enemy("Bully", "bully","The High School bully, bringer of bully, carrier of mean words",
-            "Your mom!","I'll tell dad on you!",250,meanWords,justice);
+    //Foods:
+    Items burger = new Food("Hamburger","burger",2,25);
+    Items badBurger = new Food("Bad Hamburger","badburger",2,-25);
 
-    //Bosses
-    Enemy drugDealer = new Enemy("Your local neighbourhood drug dealer", "drugdealer",
-            "Seller of rocks, bringer of stocks. A plague to society and the cousin of fun",
-            "Yo bro how's it hanging u wanna fight?", "Oh no", 300, gun, heroStatus);
-    Enemy officer = new Enemy("Police Officer","officer","Upholder of the law, strong brave and furious",
-            "Taste the power of justice", ":0", 1000, policeBaton, antiAunt);
-    Enemy aunt = new Enemy("Your aunt","aunt", "Your aunt, the guardian of the front of your home... She seems invincible",
-            "Where were you last night? Does my sister know you were out?","Here, i'll trust you are telling the truth",100000,scolding,key);
+    //BossWeapons:
+    Items bully_weapon = new MeleeWeapon("Raw insults","insult",0,25);
+    private final Items drug_dealer_weapon = new MeleeWeapon("Syringe","syringe",0,45);
+    private final Items police_officer_weapon = new MeleeWeapon("Police Baton","baton",0,70);
+    private final Items aunt_weapon = new MeleeWeapon("Scolding","scolding",0,145);
+    //BossLoot:
+    Items bully_loot = new Item("Name","nameid",5,"usage");
+    Items drug_dealer_loot = new Item("Name","nameid",5,"usage");
+    Items police_officer_loot = new Item("Name","nameid",5,"usage");
+    Items aunt_loot = new Item("Name","nameid",5,"usage");
+
+    Items instadeath = new MeleeWeapon("test","test",0,1000);
+    Items nodeath = new MeleeWeapon("test","test",0,1);
+    //Enemies:
+    Enemy slime1 = new Enemy("Slime of Death","deathslime","Kills u","blubattack","blubfleeing?","bluboof",100,instadeath,instadeath);
+    Enemy slime2 = new Enemy("Weak Slime","slime","weak","blubaaaa","blubHehe","blubreee",100,nodeath,nodeath);
+    //Boss:
+    Enemy alpha_bully = new Enemy("Alpha Bully","alphabully","The final bully, feared by many and served by twice as many","What's up nerd","Yeah go cry to your mommy","How!? A mere nerd!",250, bully_weapon, bully_loot);
+    Enemy drug_dealer = new Enemy("Drug Dealer","drugdealer","Dealer of Drugs, bringer of powders, half man, half stimulants","Punch punch punch, haha", "Where did you go? are you scared?", "Yuckers", 500, drug_dealer_weapon, drug_dealer_loot);
+    Enemy police_officer = new Enemy("Local Neighbourhood Police Officer","officer","Bringer of justice, he is the judge, jury and the executioner","JUSTICE!","Justice prevails!","Impossible, how could justice lose!?",750,police_officer_weapon,police_officer_loot);
+    Enemy aunt = new Enemy("Auntie","aunt","Scolder of children, the inside man(woman) of every mother, nothing escapes her gaze","The audacity of kids these days...","Wait till your mother finds out about this",":0",1500,aunt_weapon,aunt_loot);
+
+
     //Rooms:
     //  1 = 2 = 3 = 10
     //  |   X   |
     //  4 X 5 X 6
     //  |   |   |
     //  7 = 8 = 9
-    private final Room room1 = new Room("Subway Station", "The train is loud, and so are the people walking around");
-    private final Room room2 = new Room("Train", "The train travels fast, yet it seems like this ride could take an eternity");
-    private final Room room3 = new Room("Familiar Park", "The place reminds you of something, but you can't put your finger on it");
-    private final Room room4 = new Room("Police Station", "You should avoid this place if you are up to mischief");
-    private final Room room5 = new Room("Prison", "The prison stands at show for all, with its many occupants to display like it was a zoo");
-    private final Room room6 = new Room("School", "The place that could be summed up as progress and boredom, depending on who you ask of course");
-    private final Room room7 = new Room("Border", "What countries lies beyond the border? No one seems to know or ask");
-    private final Room room8 = new Room("Cocaine Street", "A place publicly known for it's illegalities, a place of adventure and mischief");
-    private final Room room9 = new Room("Bench by a lake", "The best place to take a sleeper when the road home is mystery");
-    Room room10 = new Room("Home", "Your home, you can barely recognise it");
+    private final Room subway_station = new Room("Subway Station", "The train is loud, and so are the people walking around");
+    private final Room train = new Room("Train", "The train travels fast, yet it seems like this ride could take an eternity");
+    private final Room familiar_park = new Room("Familiar Park", "The place reminds you of something, but you can't put your finger on it");
+    private final Room police_station = new Room("Police Station", "You should avoid this place if you are up to mischief");
+    private final Room prison = new Room("Prison", "The prison stands at show for all, with its many occupants to display like it was a zoo");
+    private final Room school = new Room("School", "The place that could be summed up as progress and boredom, depending on who you ask of course");
+    private final Room border = new Room("Border", "What countries lies beyond the border? No one seems to know or ask");
+    private final Room crime_area = new Room("Cocaine Street", "A place publicly known for it's illegalities, a place of adventure and mischief");
+    private final Room bench_by_a_lake = new Room("Bench by a lake", "The best place to take a sleeper when the road home is mystery");
+    Room home = new Room("Home", "Your home, you can barely recognise it");
     //WorldBuilding
     private void createMap(){
-        room1.setEast(room2);
-        room2.setEast(room3);
-        room1.setSouth(room4);
-        room3.setSouth(room6);
-        room4.setSouth(room7);
-        room5.setSouth(room8);
-        room6.setSouth(room9);
-        room7.setEast(room8);
-        room8.setEast(room9);
+        subway_station.setEast(train);
+        train.setEast(familiar_park);
+        subway_station.setSouth(police_station);
+        familiar_park.setSouth(school);
+        police_station.setSouth(border);
+        prison.setSouth(crime_area);
+        school.setSouth(bench_by_a_lake);
+        border.setEast(crime_area);
+        crime_area.setEast(bench_by_a_lake);
     }
     private void putItems(){
-        room1.addItem(rock);
-        room1.addItem(phone);
-        room2.addItem(idCard);
-        room1.addItem(sword);
-        room1.addItem(gun);
-        room6.addItem(justice);
-        room9.addItem(badBurger);
-        room7.addItem(burger);
+        subway_station.addItem(stick);
+        subway_station.addItem(baseball_bat);
+        subway_station.addItem(knife);
+        subway_station.addItem(machete);
+        subway_station.addItem(gun);
+
+        subway_station.addItem(burger);
+        subway_station.addItem(badBurger);
+        subway_station.addItem(burger);
+        subway_station.addItem(badBurger);
+        subway_station.addItem(burger);
+        subway_station.addItem(badBurger);
+        subway_station.addItem(burger);
+        subway_station.addItem(badBurger);
+        subway_station.addItem(burger);
+        subway_station.addItem(badBurger);
     }
     private void putEnemies(){
-        room1.addEnemy(slime);
-        room4.addEnemy(officer);
-        room3.addEnemy(aunt);
-        room8.addEnemy(druggie);
-        room5.addEnemy(drugDealer);
-        room7.addEnemy(hooligan);
-        room6.addEnemy(bully);
+        police_station.addEnemy(slime1);
+        subway_station.addEnemy(slime2);
+        subway_station.addEnemy(slime2);
+        subway_station.addEnemy(slime2);
+    }
+    private void putBosses(){
+        school.addEnemy(alpha_bully);
+        prison.addEnemy(drug_dealer);
+        police_station.addEnemy(police_officer);
+        familiar_park.addEnemy(aunt);
     }
 
 }

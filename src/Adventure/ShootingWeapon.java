@@ -9,40 +9,19 @@ public class ShootingWeapon extends Weapon{
         this.ammo=ammo;
         fullAmmo=ammo;
     }
-    public int getAmmo() {
-        return ammo;
-    }
 
-    @Override
-    public boolean checkValid() {
-        if(ammo<=0) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    @Override
-    public void useWeapon() {
-        ammo--;
-    }
-    @Override
-    public int consumeFood() {
-        return 0;
-    }
-
-    @Override
-    public String useItem(Game game) {
-        return null;
-    }
     @Override
     public int getDamage() {
+        shootWeapon();
         return super.getDamage();
     }
 
+    private void shootWeapon(){
+        ammo--;
+    }
     @Override
     public String toString() {
-        return "Weapon Type: Shooting Weapon" +
+        return super.toString() + "Shooting Weapon" +
                 "\nAmmo: " + ammo + "/" + fullAmmo;
     }
 }
