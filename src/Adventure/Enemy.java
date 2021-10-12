@@ -3,7 +3,7 @@ package Adventure;
 public class Enemy {
     private final String name;
     private final String nameID;
-    private String description;
+    private final String description;
     private final String enemyAttackLine;
     private final String enemyFleeLine;
     private final String enemyDeathLine;
@@ -38,13 +38,9 @@ public class Enemy {
     public String getDescription() {
         return description;
     }
-    public void setDescription(String description) {
-        this.description = description;
-    }
     public String getEnemyAttackLine() {
         return enemyAttackLine;
     }
-
     public String getEnemyFleeLine() {
         return enemyFleeLine;
     }
@@ -58,11 +54,9 @@ public class Enemy {
     public void setHealth(int health) {
         this.health = health;
     }
-
     public int getCurrentHealth() {
         return currentHealth;
     }
-
     public void setCurrentHealth(int currentHealth) {
         this.currentHealth = currentHealth;
     }

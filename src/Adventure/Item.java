@@ -9,11 +9,24 @@ public class Item extends Items {
     }
 
     public String useItem(Game game){
-        return "uses";
+        switch(super.getNameID()){
+            case "rock":
+                if(game.currentEnemy!=null){
+                    game.currentEnemy.addHealth(-150);
+                    return "You throw the rock and it does a lot of damage";
+                } else {
+                    return "nothing happens";
+                }
+            case "vitamin":
+                game.player.addHealth(100);
+                return "you feel the power surge through your body";
+            default:
+                return "nothing happens";
+        }
     }
 
     @Override
     public String toString() {
-        return "Item";
+        return super.toString() + "Item";
     }
 }

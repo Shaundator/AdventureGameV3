@@ -18,7 +18,8 @@ public class Map {
     }
 
     //Items:
-
+    Items rock = new Item("Magnificent Rock","rock",1,"rock");
+    Items vitamin = new Item("Vitamin Drink","vitamin",2,"vitamin");
 
     //Weapons:
     Items stick = new MeleeWeapon("Wooden stick","stick",1,5);
@@ -88,17 +89,15 @@ public class Map {
         subway_station.addItem(knife);
         subway_station.addItem(machete);
         subway_station.addItem(gun);
+        subway_station.addItem(vitamin);
+        subway_station.addItem(rock);
 
-        subway_station.addItem(burger);
-        subway_station.addItem(badBurger);
-        subway_station.addItem(burger);
-        subway_station.addItem(badBurger);
-        subway_station.addItem(burger);
-        subway_station.addItem(badBurger);
-        subway_station.addItem(burger);
-        subway_station.addItem(badBurger);
-        subway_station.addItem(burger);
-        subway_station.addItem(badBurger);
+        border.addItem(burger);
+        border.addItem(badBurger);
+        border.addItem(burger);
+        border.addItem(badBurger);
+        border.addItem(burger);
+        border.addItem(badBurger);
     }
     private void putEnemies(){
         police_station.addEnemy(slime1);

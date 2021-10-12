@@ -66,7 +66,7 @@ public class Game {
         }
     }
     public void look(){
-        System.out.println("Location:\n" +
+        System.out.println("\nLocation:\n" +
                 colorText(cyan, "This is the " + player.getCurrentRoom().getName() + "\n" +
                         player.getCurrentRoom().getDescription()));
         System.out.println("Items:\n" + colorText(blue,roomItems()));
@@ -245,7 +245,10 @@ public class Game {
         } else {
             String result = "";
             for(int i = 0; i < player.getCurrentRoom().getRoomItems().size(); i++){
-                result += player.getCurrentRoom().getRoomItems().get(i) + "\n\n";
+                result += player.getCurrentRoom().getRoomItems().get(i);
+                if(i<player.getCurrentRoom().getRoomItems().size()-1){
+                    result += "\n\n";
+                }
             }
             return result;
         }
@@ -256,7 +259,13 @@ public class Game {
         } else {
             String result = "";
             for(int i = 0; i < player.getCurrentRoom().getEnemies().size(); i++){
-                result += player.getCurrentRoom().getEnemies().get(i) + "\n\n";
+                result += player.getCurrentRoom().getEnemies().get(i);
+                if(i<player.getCurrentRoom().getEnemies().size()-1){
+                    result += "\n";
+                }
+                if(i<player.getCurrentRoom().getEnemies().size()){
+                    result += "\n";
+                }
             }
             return result;
         }
@@ -285,7 +294,7 @@ public class Game {
         switch (command1) {
             case "use":
                 use(command2);
-                return false;
+                return true;
             case "eat":
                 eat(command2);
                 return true;
