@@ -38,6 +38,7 @@ public class Map {
     Items stick = new MeleeWeapon("Stick","stick",1,5);
     Items sword = new MeleeWeapon("Sharp Sword","sword",5,25);
     Items gun = new ShootingWeapon("Gun","gun",2,100,10);
+    Items antiAunt = new Item("Good Excuse","excuse",0,"You make up a good excuse");
     Items situationCard = new ShootingWeapon("Get out of sticky situation card","situationcard",10,100000,1);
 
     //MobWeapons:
@@ -45,6 +46,7 @@ public class Map {
     Items peacefulBaton = new MeleeWeapon("Police Stick","peacefulstick",5,15);
     Items scolding = new MeleeWeapon("A Scolding","scolding",0,1000);
     Items emptyFlask = new MeleeWeapon("An empty beer bottle", "emptybottle",5,5);
+    Items meanWords = new MeleeWeapon("Mean words that hurts the heart", "meanwords",0,25);
     //Enemies
     Enemy slime = new Enemy("A Slime", "slime", "A green gooey Slime","blub blub","Blub Blub :(", 250, stick, food2);
     Enemy hooligan = new Enemy("Football Hooligan", "hooligan",
@@ -52,13 +54,15 @@ public class Map {
             100,emptyFlask,vodka);
     Enemy druggie = new Enemy("A Druggie","druggie","Smelly and vile, carrier of addiction and bringer of money",
             "Why do you look like my mother?","Bad cocaine",100,stick,vitamin);
+    Enemy bully = new Enemy("Bully", "bully","The High School bully, bringer of bully, carrier of mean words",
+            "Your mom!","I'll tell dad on you!",250,meanWords,justice);
 
     //Bosses
     Enemy drugDealer = new Enemy("Your local neighbourhood drug dealer", "drugdealer",
             "Seller of rocks, bringer of stocks. A plague to society and the cousin of fun",
             "Yo bro how's it hanging u wanna fight?", "Oh no", 300, gun, heroStatus);
     Enemy officer = new Enemy("Police Officer","officer","Upholder of the law, strong brave and furious",
-            "Taste the power of justice", ":0", 1000, policeBaton, situationCard);
+            "Taste the power of justice", ":0", 1000, policeBaton, antiAunt);
     Enemy aunt = new Enemy("Your aunt","aunt", "Your aunt, the guardian of the front of your home... She seems invincible",
             "Where were you last night? Does my sister know you were out?","Here, i'll trust you are telling the truth",100000,scolding,key);
     //Rooms:
@@ -105,6 +109,8 @@ public class Map {
         room3.addEnemy(aunt);
         room8.addEnemy(druggie);
         room5.addEnemy(drugDealer);
+        room7.addEnemy(hooligan);
+        room6.addEnemy(bully);
     }
 
 }

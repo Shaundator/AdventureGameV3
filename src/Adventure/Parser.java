@@ -62,18 +62,23 @@ public class Parser {
     public String battleMenuItems(){
         Scanner scBattleItems = new Scanner(System.in);
         while(true){
-            String choice = scBattleItems.nextLine().toLowerCase();
-            String command = scanBattleChoice(choice);
-            if(command.equals("use")) {
-                return "use " + choice;
+            String command = scBattleItems.nextLine().toLowerCase();
+            String command1 = command;
+            String command2 = "";
+            if (command.contains(" ")) {
+                int space = command.indexOf(" ");
+                command1 = command.substring(0, space);
+                command2 = command.substring(space + 1);
+            } else {
+                command1 = command;
             }
-            if(command.equals("throw")) {
-                return "throw " + choice;
+            switch(command1) {
+                case "use":
+                case "eat":
+                    return command1 + " " + command2;
+                case "exit":
+                    return command1;
             }
-            if(command.equals("eat")) {
-                    return "eat " + choice;
-            }
-            System.out.println("invalid");
         }
     }
 
@@ -92,18 +97,6 @@ public class Parser {
             return "west";
         }
         else return "invalid direction";
-    }
-    public String scanBattleChoice(String userInput){
-        if(userInput.contains("use")){
-            return "use";
-        }
-        if(userInput.contains("throw")){
-            return "throw";
-        }
-        if(userInput.contains("eat")){
-            return "eat";
-        }
-        return "invalid";
     }
     public String scanCommand(String userInput) {
         if ((userInput.equalsIgnoreCase("North")) || (userInput.equalsIgnoreCase("N"))) {

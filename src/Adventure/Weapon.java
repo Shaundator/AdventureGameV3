@@ -30,8 +30,6 @@ public abstract class Weapon extends Items {
 
     @Override
     public String toString() {
-        return "Weapon{" +
-                "damage=" + damage +
-                '}';
+        return "Type: Weapon\nDamage: " + damage;
     }
 }

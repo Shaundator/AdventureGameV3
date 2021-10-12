@@ -10,6 +10,11 @@ public class Item extends Items {
 
     @Override
     public String useItem(Game game) {
+        if(getNameID().equalsIgnoreCase("rock")){
+            if(game.currentEnemy!=null) {
+                game.currentEnemy.addHealth(-100);
+            }
+        }
         if(getNameID().equalsIgnoreCase("key")){
             game.map.defeatAunt();
         }
@@ -21,7 +26,15 @@ public class Item extends Items {
             game.player.addHealth(100);
         }
         if(getNameID().equalsIgnoreCase("justice")){
-            game.map.drugDealer.setHealth(10);
+            if(game.currentEnemy==game.map.drugDealer) {
+                game.map.drugDealer.setHealth(10);
+            }
+        }
+        if(getNameID().equalsIgnoreCase("excuse")){
+            if(game.currentEnemy==game.map.aunt){
+                game.map.aunt.setWeapon(game.map.meanWords);
+                game.map.aunt.setHealth(100);
+            }
         }
         return use;
     }
@@ -59,8 +72,7 @@ public class Item extends Items {
 
     @Override
     public String toString() {
-        return "Item{" +
-                "use='" + use + '\'' +
-                '}';
+        return "Type: Item" +
+                "\nUse: Mystery";
     }
 }

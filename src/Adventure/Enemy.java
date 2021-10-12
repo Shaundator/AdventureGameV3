@@ -21,6 +21,9 @@ public class Enemy {
         this.loot=loot;
     }
 
+    public void addHealth(int health){
+        this.health+=health;
+    }
 
     //Get&Set
     public String getName() {
@@ -35,7 +38,6 @@ public class Enemy {
     public void setDescription(String description) {
         this.description = description;
     }
-
     public String getEnemyAttackLine() {
         return enemyAttackLine;
     }
@@ -56,7 +58,6 @@ public class Enemy {
     public void setWeapon(Items weapon) {
         this.weapon = weapon;
     }
-
     public Items getLoot() {
         return loot;
     }

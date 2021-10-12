@@ -28,6 +28,14 @@ public class Game {
         }
         System.out.println(colorText(cyan, "And so, our hero finally arrived home"));
     }
+    public void battleFight(){
+        test(player.getCurrentWeapon());
+    }
+    public void test(Items weapon){
+        if(weapon instanceof ShootingWeapon){
+            int currentAmmo = ((ShootingWeapon) weapon).getAmmo();
+        }
+    }
 
     //Menu
     public void go(String direction){
@@ -68,7 +76,7 @@ public class Game {
         System.out.println("\nLocation:");
         System.out.println(colorText(cyan, "This is the " + player.getCurrentRoom().getName()));
         System.out.println(colorText(cyan,player.getCurrentRoom().getDescription()));
-        System.out.println(colorText(cyan, heOrShe() + " takes a look around to see if anything is laying around the " + player.getCurrentRoom().getName().toLowerCase() + ": "));
+        System.out.println(colorText(cyan, userName + " takes a look around to see if anything is laying around the " + player.getCurrentRoom().getName().toLowerCase() + ": "));
         System.out.print("Items:");
         roomItems();
         System.out.println("\nupon further inspection, " + userName + " tries to see if there are anyone " + heOrShe() + " can talk with");
@@ -77,8 +85,8 @@ public class Game {
     public void inventory() {
         if(player.getCurrentWeapon()!=null){
             System.out.println(userName + apostrof(userName) + " weapon: " + "\n" +
-                    colorText(blue,"Weapon Name: " + player.getCurrentWeapon().getName()));
-            System.out.println(colorText(blue, "" + player.getCurrentWeapon()));
+                    colorText(blue,"Weapon: " + player.getCurrentWeapon().getName()));
+            System.out.println(colorText(white, "" + player.getCurrentWeapon()));
         }
         System.out.println("Inventory:");
         String inventory = "";
@@ -101,7 +109,7 @@ public class Game {
     public void attack(String enemy){
         if(player.getCurrentRoom().getEnemy(enemy)!=null){
             currentEnemy=player.getCurrentRoom().getEnemy(enemy);
-            System.out.println(userName + apostrof(userName) + " foe is " + currentEnemy.getName()+ "!");
+            System.out.println(userName + apostrof(userName) + " foe is a " + currentEnemy.getName()+ "!");
             int turn = 0;
             boolean battleOn = true;
             while(battleOn){
@@ -114,7 +122,7 @@ public class Game {
                 String action = parser.battleMenu();
 
                 if(action.equals("attack")){
-                    System.out.println(colorText(white,userName + " attacks " + currentEnemy.getName() + " with " + player.getCurrentWeapon().getName()));
+                    System.out.println(colorText(white,userName + " attacks the " + currentEnemy.getName() + " with " + player.getCurrentWeapon().getName()));
                     System.out.println(colorText(white,"Damage Done: " + player.getCurrentWeapon().getDamage()));
                     player.attack(currentEnemy);
                     checkWeapon();
@@ -123,16 +131,15 @@ public class Game {
                     }
                 }
                 else if(action.equals("items")){
-                    System.out.println("Use/Throw/Eat (item)");
                     if(!useItemFight()) {
                         System.out.println(userName + " does nothing?");
-                        System.out.println(currentEnemy + " thinks " + userName + " is up to something and stands on guard");
+                        System.out.println(colorText(yellow,"The " + currentEnemy.getName() + " thinks " + userName + " is up to something and stands on guard"));
                     } else {
                         enemyAttack();
                     }
                 }
                 else if(action.equals("flee")){
-                    System.out.println(userName + " flees from the fight");
+                    System.out.println(colorText(yellow,userName + " flees from the fight"));
                     battleOn=false;
                 }
 
@@ -147,7 +154,7 @@ public class Game {
             }
         }
         else {
-            System.out.println("No such enemy");
+            System.out.println(colorText(red,"No such enemy"));
         }
     }
     public void use(String item){
@@ -198,7 +205,7 @@ public class Game {
         if (player.findItem(item) != null) {
             if (player.eatItem(player.findItem(item))){
                 player.eatFood(player.findItem(item));
-                System.out.println(userName + " eats " + addArticle(player.findItem(item)) + player.findItem(item).getName().toLowerCase());
+                System.out.println(colorText(green,userName + " eats " + addArticle(player.findItem(item)) + player.findItem(item).getName().toLowerCase()));
                 player.destroyItem(player.findItem(item));
             } else {
                 System.out.println(colorText(red,player.findItem(item).getName() + " cannot be eaten"));
@@ -273,10 +280,10 @@ public class Game {
     //attack
     public boolean enemyAlive(){
         if(currentEnemy.getHealth()<=0){
-            System.out.println(colorText(yellow,currentEnemy.getName() + ": " + currentEnemy.getEnemyDeathLine()));
+            System.out.println(colorText(yellow,currentEnemy.getName() + ": " + "'" + currentEnemy.getEnemyDeathLine() + "'"));
             System.out.println(colorText(green, userName + " is victorious!"));
             player.getCurrentRoom().enemyDeath(currentEnemy);
-            System.out.println(colorText(green,currentEnemy.getName() + " drops " + currentEnemy.getLoot().getName()));
+            System.out.println(colorText(blue,currentEnemy.getName() + " drops " + currentEnemy.getLoot().getName()));
             currentEnemy=null;
             return false;
         }
@@ -300,7 +307,7 @@ public class Game {
         System.out.println(colorText(red,userName + " takes " + currentEnemy.getWeapon().getDamage() + " damage!"));
     }
     public boolean useItemFight() {
-        System.out.println("take, use or throw an item(exit to exit)");
+        System.out.print("Eat(item), Use(item), Exit: ");
         String command = parser.battleMenuItems();
         String command1 = command;
         String command2 = "";
@@ -311,30 +318,16 @@ public class Game {
         }
         switch (command1) {
             case "use":
-                battleUse(command2);
-                return false;
-            case "throw":
-                battleThrow(command2);
-                return false;
+                use(command2);
+                return true;
             case "eat":
-                battleEat(command2);
+                eat(command2);
                 return true;
             case "exit":
                 return false;
         }
         return false;
     }
-    public void battleUse(String item){
-        System.out.println("use item");
-        eat(item);
-    }
-    public void battleThrow(String item){
-        System.out.println("throw item");
-    }
-    public void battleEat(String item){
-        System.out.println("eat item");
-    }
-
     //Parameters
     public void startText(){
         System.out.println("\nWelcome to the journey of the Skejs\n"+

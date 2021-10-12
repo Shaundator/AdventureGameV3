@@ -13,7 +13,6 @@ public class ShootingWeapon extends Weapon{
         return ammo;
     }
 
-
     @Override
     public boolean checkValid() {
         if(ammo<=0) {

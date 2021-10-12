@@ -50,9 +50,6 @@ public class Food extends Items {
 
     @Override
     public String toString() {
-        return "Food{" +
-                "healthPoints=" + healthPoints +
-                ", bonusDamage=" + bonusDamage +
-                '}';
+        return "Type: Food\nHealthPoints: " + healthPoints;
     }
 }
