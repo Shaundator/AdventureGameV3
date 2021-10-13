@@ -27,6 +27,8 @@ public class Room {
     }
     public void enemyDeath(Enemy deadEnemy){
         roomItems.add(deadEnemy.getLoot());
+        int enemy = enemies.indexOf(deadEnemy);
+        enemies.get(enemy).resetHealth();
         enemies.remove(deadEnemy);
     }
 

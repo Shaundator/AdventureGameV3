@@ -63,6 +63,7 @@ public class Player {
     //Food
     public void eatFood(Items item){
         currentHealth += (((Food) item).getHealthPoints());
+        inventory.remove(item);
         if(currentHealth>health){
             currentHealth=health;
         }

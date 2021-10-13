@@ -38,16 +38,17 @@ public class Map {
     private final Items police_officer_weapon = new MeleeWeapon("Police Baton","baton",0,70);
     private final Items aunt_weapon = new MeleeWeapon("Scolding","scolding",0,145);
     //BossLoot:
-    Items bully_loot = new Item("Name","nameid",5,"usage");
-    Items drug_dealer_loot = new Item("Name","nameid",5,"usage");
-    Items police_officer_loot = new Item("Name","nameid",5,"usage");
-    Items aunt_loot = new Item("Name","nameid",5,"usage");
+    Items bully_loot = new Item("Bully Loot","bullyloot",5,"Trophy for defeating the bully");
+    Items drug_dealer_loot = new Item("Drug Dealer Loot","dealerloot",5,"Trophy for defeating the drug dealer");
+    Items police_officer_loot = new Item("Police Officer Loot","officerloot",5,"Trophy for defeating the drug dealer");
+    Items aunt_loot = new Item("Aunt Loot","auntloot",5,"Trophy for defeating your Aunt");
+    //Enemy Loot:
+    Items pedestrian_loot = new Item("Medicine","meds",1,"Restores 50 health");
+    Items pedestrian_weapon = new MeleeWeapon("Annoyance","annoyance",0,15);
 
-    Items instadeath = new MeleeWeapon("test","test",0,1000);
-    Items nodeath = new MeleeWeapon("test","test",0,1);
     //Enemies:
-    Enemy slime1 = new Enemy("Slime of Death","deathslime","Kills u","blubattack","blubfleeing?","bluboof",100,instadeath,instadeath);
-    Enemy slime2 = new Enemy("Weak Slime","slime","weak","blubaaaa","blubHehe","blubreee",100,nodeath,nodeath);
+    Enemy violent_pedestrian = new Enemy("Violent pedestrian","pedestrian", "Dangerous human beings, bringer of violence and annoying situations","Ehm, excuse me i walked here","Have a LOVELY evening","*sigh* back in my days...",100,pedestrian_weapon,pedestrian_loot);
+    Enemy invincible_slime = new Enemy("Invincible Slime","invislime","can't die can't kill just there to be annoying","Reee","REebye","impossible",100000,new MeleeWeapon("invincible hand","invihand",0,0),new Item("nothing","nothingness",0,"nothing"));
     //Boss:
     Enemy alpha_bully = new Enemy("Alpha Bully","alphabully","The final bully, feared by many and served by twice as many","What's up nerd","Yeah go cry to your mommy","How!? A mere nerd!",250, bully_weapon, bully_loot);
     Enemy drug_dealer = new Enemy("Drug Dealer","drugdealer","Dealer of Drugs, bringer of powders, half man, half stimulants","Punch punch punch, haha", "Where did you go? are you scared?", "Yuckers", 500, drug_dealer_weapon, drug_dealer_loot);
@@ -100,10 +101,10 @@ public class Map {
         border.addItem(badBurger);
     }
     private void putEnemies(){
-        police_station.addEnemy(slime1);
-        subway_station.addEnemy(slime2);
-        subway_station.addEnemy(slime2);
-        subway_station.addEnemy(slime2);
+        subway_station.addEnemy(violent_pedestrian);
+        subway_station.addEnemy(violent_pedestrian);
+        subway_station.addEnemy(violent_pedestrian);
+        train.addEnemy(invincible_slime);
     }
     private void putBosses(){
         school.addEnemy(alpha_bully);

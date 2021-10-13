@@ -8,7 +8,7 @@ public class Enemy {
     private final String enemyFleeLine;
     private final String enemyDeathLine;
     private int health;
-    private int currentHealth;
+    private int maxHealth;
     private Items weapon;
     private Items loot;
 
@@ -22,10 +22,14 @@ public class Enemy {
         this.health=health;
         this.weapon=weapon;
         this.loot=loot;
+        maxHealth=health;
     }
 
     public void addHealth(int health){
         this.health+=health;
+    }
+    public void resetHealth(){
+        health=maxHealth;
     }
 
     //Get&Set
@@ -54,12 +58,15 @@ public class Enemy {
     public void setHealth(int health) {
         this.health = health;
     }
-    public int getCurrentHealth() {
-        return currentHealth;
+
+    public int getMaxHealth() {
+        return maxHealth;
     }
-    public void setCurrentHealth(int currentHealth) {
-        this.currentHealth = currentHealth;
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
     }
+
     public Items getWeapon(){
         return weapon;
     }

@@ -1,15 +1,24 @@
 package Adventure;
 
 public abstract class Weapon extends Items {
-    private final int damage;
+    private int damage;
 
     public Weapon(String name, String nameID, int weight, int damage){
         super(name, nameID, weight);
         this.damage=damage;
     }
 
+    @Override
+    public String getName() {
+        return super.getName();
+    }
+
+    public abstract String use();
     public int getDamage() {
         return damage;
+    }
+    public void setDamage(int damage) {
+        this.damage=damage;
     }
 
     @Override

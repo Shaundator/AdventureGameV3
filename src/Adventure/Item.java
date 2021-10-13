@@ -20,6 +20,13 @@ public class Item extends Items {
             case "vitamin":
                 game.player.addHealth(100);
                 return "you feel the power surge through your body";
+            case "meds":
+                if(game.player.getCurrentHealth()==game.player.getHealth()){
+                    return "Not like you gonna get plus health for this";
+                } else {
+                    game.player.addHealth(50);
+                    return "you feel the surge of vitality";
+                }
             default:
                 return "nothing happens";
         }
@@ -27,6 +34,6 @@ public class Item extends Items {
 
     @Override
     public String toString() {
-        return super.toString() + "Item\nUsage: ";
+        return super.toString() + "Item\nUsage: " + use;
     }
 }

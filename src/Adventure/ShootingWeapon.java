@@ -12,13 +12,19 @@ public class ShootingWeapon extends Weapon{
 
     @Override
     public int getDamage() {
-        shootWeapon();
         return super.getDamage();
     }
 
-    private void shootWeapon(){
+    @Override
+    public String use() {
         ammo--;
+        if(ammo <= 0){
+            super.setDamage(0);
+            return "you shoot your last ammo...";
+        }
+        return "you shoot your weapon, Ammo: " + ammo + "/" + fullAmmo;
     }
+
     @Override
     public String toString() {
         return super.toString() + "Shooting Weapon" +

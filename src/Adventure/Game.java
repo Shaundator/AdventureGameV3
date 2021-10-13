@@ -116,6 +116,7 @@ public class Game {
                             System.out.println(colorText(white,userName + " attacks " + currentEnemy.getName() + " with " + player.getCurrentWeapon().getName()));
                             System.out.println(colorText(white,"Damage Done: " + ((Weapon) player.getCurrentWeapon()).getDamage()));
                             player.attack(currentEnemy);
+                            System.out.println(((Weapon) player.getCurrentWeapon()).use());
                             if(currentEnemy.getHealth()<=0){
                                 System.out.println(colorText(yellow,currentEnemy.getName() + ": " +
                                         currentEnemy.getEnemyDeathLine()));
@@ -196,7 +197,7 @@ public class Game {
     public void eat(String item) {
         if(player.findItem(item)!=null){
             if(player.findItem(item) instanceof Food){
-            System.out.println(userName + " eats the " + player.findItem(item).getName().toLowerCase());
+            System.out.println(colorText(yellow,userName + " eats the " + player.findItem(item).getName().toLowerCase()));
             player.eatFood(player.findItem(item));
         } else {
                 System.out.println(colorText(red, player.findItem(item).getName() + " cannot be eaten"));
@@ -207,13 +208,13 @@ public class Game {
     }
     public void inspect(String item){
         if(player.getCurrentRoom().findItem(item)!=null){
-            System.out.println(player.getCurrentRoom().findItem(item).toString());
+            System.out.println(colorText(blue,player.getCurrentRoom().findItem(item).toString()));
         }
-        if(player.findItem(item)!=null) {
-            System.out.println(player.findItem(item).toString());
+        else if(player.findItem(item)!=null) {
+            System.out.println(colorText(blue,player.findItem(item).toString()));
         }
-        if(player.getCurrentRoom().getEnemy(item)!=null){
-            System.out.println(player.getCurrentRoom().getEnemy(item));
+        else if(player.getCurrentRoom().getEnemy(item)!=null){
+            System.out.println(colorText(red,player.getCurrentRoom().getEnemy(item).toString()));
         }
         else {
             System.out.println(colorText(red,"invalid item"));
