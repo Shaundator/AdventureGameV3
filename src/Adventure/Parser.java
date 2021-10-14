@@ -1,5 +1,6 @@
 package Adventure;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Parser {
@@ -40,7 +41,17 @@ public class Parser {
                 return "("+command+")";
         }
     }
-
+    public String yesOrNo(){
+        Scanner sc1 = new Scanner(System.in);
+        String yesOrNo = sc1.nextLine().toLowerCase();
+        if (yesOrNo.equals("yes") || yesOrNo.equals("y")) {
+                return "yes";
+        }
+        if (yesOrNo.equals("no") || yesOrNo.equals("n")) {
+                return "no";
+        }
+        return "("+yesOrNo+")";
+    }
     //Battle
     public String battleMenu() {
         Scanner scBattle = new Scanner(System.in);

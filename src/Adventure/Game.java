@@ -207,9 +207,29 @@ public class Game {
     public void eat(String item) {
         if(player.findItem(item)!=null){
             if(player.findItem(item) instanceof Food){
-            System.out.println(colorText(yellow,userName + " eats the " + player.findItem(item).getName().toLowerCase()));
-            player.eatFood(player.findItem(item));
-        } else {
+                if(((Food) player.findItem(item)).poisonous()){
+                    System.out.println(colorText(red, "this food seems bad") + "\nAre you sure you want to eat this?");
+                    boolean notValid = true;
+                    while(notValid) {
+                        switch (parser.yesOrNo()) {
+                            case "yes":
+                                System.out.println(colorText(red, userName + " eats the " + player.findItem(item).getName().toLowerCase()));
+                                player.eatFood(player.findItem(item));
+                                notValid=false;
+                                break;
+                            case "no":
+                                System.out.println(colorText(green,"Phew, seems like " + userName + " shall live to see another day"));
+                                notValid=false;
+                                break;
+                            default:
+                                System.out.println(colorText(red,"Invalid"));
+                        }
+                    }
+                } else {
+                    System.out.println(colorText(yellow, userName + " eats the " + player.findItem(item).getName().toLowerCase()));
+                    player.eatFood(player.findItem(item));
+                }
+            } else {
                 System.out.println(colorText(red, player.findItem(item).getName() + " cannot be eaten"));
             }
         } else {

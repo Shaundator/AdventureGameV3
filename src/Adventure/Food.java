@@ -8,6 +8,14 @@ public class Food extends Items {
         this.healthPoints=healthPoints;
     }
 
+    public boolean poisonous(){
+        if(healthPoints<0){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public int getHealthPoints() {
         return healthPoints;
     }
