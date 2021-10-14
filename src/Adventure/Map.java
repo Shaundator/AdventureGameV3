@@ -21,6 +21,7 @@ public class Map {
     Items rock = new Item("Magnificent Rock","rock",1,"A rock? Maybe if u use it on someone it will actually do something");
     Items vitamin = new Item("Vitamin Drink","vitamin",2,"Adds 100 health to total health");
     Items anti_officer = new Item("Justice","justice",10,"Become one with justice");
+    Items test_weight_limit = new Item("Heavy thing","heavy",1000,"so heavy");
 
     //Weapons:
     Items stick = new MeleeWeapon("Wooden stick","stick",1,5);
@@ -94,6 +95,7 @@ public class Map {
         subway_station.addItem(gun);
         subway_station.addItem(vitamin);
         subway_station.addItem(rock);
+        subway_station.addItem(test_weight_limit);
 
         border.addItem(burger);
         border.addItem(badBurger);

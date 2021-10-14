@@ -79,7 +79,7 @@ public class Game {
         } else {
             System.out.println(colorText(red, userName + " has no weapons equipped"));
         }
-        System.out.println("Inventory:");
+        System.out.println("Inventory: " + colorText(white,player.getInventoryWeight() + "/" + player.getWeightLimit() + " weight used"));
         String inventory = "";
         if (player.getInventory().size() == 0) {
             System.out.println(colorText(red, userName + apostrof(userName) + " inventory is empty"));
@@ -104,11 +104,14 @@ public class Game {
             boolean battleOn = true;
             while(battleOn){
                 turn++;
-                System.out.println(currentEnemy.getName() + apostrof( currentEnemy.getName()) + " health: " +
+                System.out.println("\n" + currentEnemy.getName() + apostrof( currentEnemy.getName()) + " health: " +
                         colorText(red, "" + currentEnemy.getHealth()) + " | " + userName + apostrof(userName) +
                         " health: " + healthCheck());
-                System.out.println(colorText(cyan,"\nTurn " + turn));
-                System.out.print("Attack, Items, Flee: ");
+                if(player.getCurrentWeapon()!=null) {
+                    usableWeaponCheck();
+                }
+                System.out.println(colorText(cyan,"Turn " + turn));
+                System.out.print("Attack, Items, Inventory, Flee: ");
                 String action = parser.battleMenu();
                 switch(action){
                     case "attack":
@@ -116,7 +119,7 @@ public class Game {
                             System.out.println(colorText(white,userName + " attacks " + currentEnemy.getName() + " with " + player.getCurrentWeapon().getName()));
                             System.out.println(colorText(white,"Damage Done: " + ((Weapon) player.getCurrentWeapon()).getDamage()));
                             player.attack(currentEnemy);
-                            System.out.println(((Weapon) player.getCurrentWeapon()).use());
+                            System.out.println(colorText(white,((Weapon) player.getCurrentWeapon()).use()));
                             if(currentEnemy.getHealth()<=0){
                                 System.out.println(colorText(yellow,currentEnemy.getName() + ": " +
                                         currentEnemy.getEnemyDeathLine()));
@@ -130,13 +133,13 @@ public class Game {
                             }
                         } else {
                             System.out.println(colorText(red, userName + " is not equipped with any weapon"));
+                            turn--;
                         }
                         break;
                     case "items":
-                        System.out.println("Use or Eat an item");
+                        System.out.println("Use or Eat an item(exit to cancel)");
                         if(!useItemFight()){
-                            System.out.println(colorText(white, userName + " does nothing"));
-                            System.out.println(colorText(yellow, currentEnemy.getName() + " thinks " + userName + " is up to something and stand on guard"));
+                            turn--;
                         } else {
                             if(currentEnemy.getHealth()<=0){
                                 System.out.println(colorText(yellow,currentEnemy.getName() + ": " +
@@ -150,6 +153,10 @@ public class Game {
                                 enemyAttack();
                             }
                         }
+                        break;
+                    case "inventory":
+                        inventory();
+                        turn--;
                         break;
                     case "flee":
                         System.out.println(colorText(yellow, userName + " flees from the fight"));
@@ -189,19 +196,22 @@ public class Game {
     }
     public void take(String item){
         if(player.getCurrentRoom().findItem(item)==null){
-
             System.out.println(colorText(red,player.getCurrentRoom().getName() + " does not contain any " + item));
         } else {
-            System.out.println(colorText(green, userName + " takes the " + player.getCurrentRoom().findItem(item).getName().toLowerCase()));
-            player.takeItem(player.getCurrentRoom().findItem(item));
+            if(player.weightLimit(player.getCurrentRoom().findItem(item))){
+                System.out.println(colorText(green, userName + " takes the " + player.getCurrentRoom().findItem(item).getName().toLowerCase()));
+                player.takeItem(player.getCurrentRoom().findItem(item));
+            } else {
+                System.out.println(colorText(red,userName + " cannot carry this, they are too weak"));
+            }
         }
     }
     public void drop(String item){
         if(player.findItem(item)==null){
             System.out.println(colorText(red,userName + apostrof(userName) + " inventory does not contain " + item));
         } else {
-            player.dropItem(player.findItem(item));
             System.out.println(colorText(green, userName + " drops the " + player.findItem(item).getName().toLowerCase()));
+            player.dropItem(player.findItem(item));
         }
     }
     public void eat(String item) {
@@ -275,6 +285,14 @@ public class Game {
     }
 
     //SubMenus
+    public void usableWeaponCheck() {
+        if (!((Weapon) player.getCurrentWeapon()).usable()) {
+            System.out.println(colorText(red,userName + " looks at the useless " +
+                    player.getCurrentWeapon().getName().toLowerCase() + " and throws it away"));
+            player.setCurrentWeapon(null);
+        }
+    }
+
 
     //go
     public void travel(String direction){
@@ -326,7 +344,6 @@ public class Game {
         System.out.println(colorText(red,userName + " takes " + ((Weapon) currentEnemy.getWeapon()).getDamage() + " damage!"));
     }
     public boolean useItemFight() {
-        System.out.println("use item menu");
         String command = parser.battleMenuItems();
         String command1 = command;
         String command2 = "";

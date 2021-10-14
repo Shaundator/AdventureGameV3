@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Player {
     private String name;
     private Room currentRoom;
+    private int weightLimit = 1000;
     private int health;
     private int currentHealth;
     private Items currentWeapon;
@@ -68,6 +69,21 @@ public class Player {
             currentHealth=health;
         }
     }
+    public boolean weightLimit(Items item){
+        int invWeight = 0;
+        for(int i = 0; i < inventory.size(); i++) {
+            invWeight += inventory.get(i).getWeight();
+        }
+        if(currentWeapon!=null) {
+            invWeight += currentWeapon.getWeight();
+        }
+        invWeight += item.getWeight();
+        if(invWeight>weightLimit){
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     //Movement
     public void moveRoom(Room nextRoom){
@@ -123,6 +139,12 @@ public class Player {
     public void setCurrentRoom(Room room){
         this.currentRoom=room;
     }
+    public int getWeightLimit() {
+        return weightLimit;
+    }
+    public void setWeightLimit(int weightLimit) {
+        this.weightLimit = weightLimit;
+    }
     public int getHealth() {
         return health;
     }
@@ -143,5 +165,15 @@ public class Player {
     }
     public ArrayList<Items> getInventory(){
         return inventory;
+    }
+    public int getInventoryWeight(){
+        int weight = 0;
+        for(int i = 0; i < inventory.size(); i++){
+            weight += inventory.get(i).getWeight();
+        }
+        if(currentWeapon!=null){
+            weight += currentWeapon.getWeight();
+        }
+        return weight;
     }
 }

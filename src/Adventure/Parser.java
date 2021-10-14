@@ -64,6 +64,9 @@ public class Parser {
             if (choice.equals("items") || choice.equals("item")) {
                 return "items";
             }
+            if (choice.equals("inventory")||choice.equals("inv")||choice.equals("i")) {
+                return "inventory";
+            }
             if (choice.equals("flee")) {
                 return "flee";
             }

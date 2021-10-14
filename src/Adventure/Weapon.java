@@ -14,6 +14,7 @@ public abstract class Weapon extends Items {
     }
 
     public abstract String use();
+    public abstract boolean usable();
     public int getDamage() {
         return damage;
     }

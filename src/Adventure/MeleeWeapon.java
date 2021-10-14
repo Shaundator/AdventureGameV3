@@ -12,6 +12,11 @@ public class MeleeWeapon extends Weapon {
     }
 
     @Override
+    public boolean usable() {
+        return true;
+    }
+
+    @Override
     public String toString() {
         return super.toString() + "Melee";
     }
