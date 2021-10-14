@@ -227,6 +227,7 @@ public class Game {
                 Look: Inspect current location
                 Attack: Attack an enemy
                 Inventory: See inventory
+                Inspect: Inspect an item
                 Use: Use an item
                 Eat: Eat an item
                 Equip: Equip an item
