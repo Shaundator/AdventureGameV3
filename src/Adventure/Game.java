@@ -173,6 +173,8 @@ public class Game {
                     System.exit(0);
                 }
             }
+        } else {
+            System.out.println(colorText(red, "No foe with the name '"+enemy+"'"));
         }
     }
     public void use(String item){
@@ -209,9 +211,14 @@ public class Game {
         }
     }
     public void drop(String item){
-        if(player.findItem(item)==null){
+        if(player.getCurrentWeapon().getNameID().equals(item)){
+            System.out.println(colorText(green, userName + " drops " + hisOrHer() + " equipped " + player.getCurrentWeapon().getName()));
+            player.dropWeapon();
+        }
+        else if(player.findItem(item)==null){
             System.out.println(colorText(red,userName + apostrof(userName) + " inventory does not contain " + item));
-        } else {
+        }
+        else {
             System.out.println(colorText(green, userName + " drops the " + player.findItem(item).getName().toLowerCase()));
             player.dropItem(player.findItem(item));
         }
@@ -339,7 +346,7 @@ public class Game {
             return;
         }
         System.out.println(colorText(red,currentEnemy.getName() + " is furious!"));
-        System.out.println(currentEnemy.getName() + ": " + colorText(yellow,"'"+currentEnemy.getEnemyAttackLine())+"'");
+        System.out.println(currentEnemy.getName() + ": " + colorText(yellow,"'"+currentEnemy.getEnemyAttackLine()+"'"));
         player.takeDamage(currentEnemy);
         System.out.println(colorText(white, currentEnemy.getName() + " strikes with " + currentEnemy.getWeapon().getName()));
         System.out.println(colorText(red,userName + " takes " + ((Weapon) currentEnemy.getWeapon()).getDamage() + " damage!"));
@@ -439,6 +446,7 @@ public class Game {
                 drop(command2);
                 break;
             case "eat":
+            case "drink":
                 eat(command2);
                 break;
             case "equip":

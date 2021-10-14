@@ -55,7 +55,7 @@ public class Room {
     }
     public Enemy getEnemy(String enemy){
         for(int i = 0; i < enemies.size(); i++){
-            if(enemies.get(i).getNameID().equals(enemy)){
+            if(enemies.get(i).getNameID().equals(enemy)||enemies.get(i).getName().toLowerCase().equals(enemy)){
                 return enemies.get(i);
             }
         }

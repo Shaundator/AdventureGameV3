@@ -26,6 +26,7 @@ public class Parser {
             case "drop":
             case "equip":
             case "inspect":
+            case "drink":
             case "eat":
             case "attack":
                 return command + " " + commandInput;

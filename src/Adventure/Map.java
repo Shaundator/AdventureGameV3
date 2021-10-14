@@ -22,6 +22,7 @@ public class Map {
     Items vitamin = new Item("Vitamin Drink","vitamin",2,"Adds 100 health to total health");
     Items anti_officer = new Item("Justice","justice",10,"Become one with justice");
     Items test_weight_limit = new Item("Heavy thing","heavy",1000,"so heavy");
+    Items anti_auntie = new Item("Anti Aunt Spray","antiaunt",20,"Aunt repellent, very effective");
 
     //Weapons:
     Items stick = new MeleeWeapon("Wooden stick","stick",1,5);
@@ -44,9 +45,9 @@ public class Map {
     Items bully_loot = new Item("Bully Loot","bullyloot",5,"Trophy for defeating the bully");
     Items drug_dealer_loot = anti_officer;
     Items police_officer_loot = new Item("Police Officer Loot","officerloot",5,"Trophy for defeating the drug dealer");
-    Items aunt_loot = new Item("Aunt Loot","auntloot",5,"Trophy for defeating your Aunt");
+    Items aunt_loot = new Item("Home Key","homekey",5,"Your aunt had a reserve key, maybe this will help you remember the road home?");
     //Enemy Loot:
-    Items pedestrian_loot = new Item("Medicine","meds",1,"Restores 50 health");
+    Items pedestrian_loot = new Item("Medicine","meds",1,"Restores 50 Health");
     Items pedestrian_weapon = new MeleeWeapon("Annoyance","annoyance",0,15);
 
     //Enemies:
@@ -96,6 +97,8 @@ public class Map {
         subway_station.addItem(vitamin);
         subway_station.addItem(rock);
         subway_station.addItem(test_weight_limit);
+
+        familiar_park.addItem(anti_auntie);
 
         border.addItem(burger);
         border.addItem(badBurger);

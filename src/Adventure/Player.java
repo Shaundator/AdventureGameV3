@@ -50,6 +50,16 @@ public class Player {
     public void addHealth(int health){
         this.health+=health;
     }
+    public void restoreHealth(int health){
+        currentHealth = currentHealth + health;
+        if(currentHealth>this.health){
+            currentHealth=this.health;
+        }
+    }
+    public void dropWeapon(){
+        currentRoom.getRoomItems().add(currentWeapon);
+        currentWeapon=null;
+    }
 
     //Battle
     public void attack(Enemy enemy) {
