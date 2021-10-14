@@ -4,9 +4,9 @@ public class Enemy {
     private final String name;
     private final String nameID;
     private final String description;
-    private final String enemyAttackLine;
-    private final String enemyFleeLine;
-    private final String enemyDeathLine;
+    private String enemyAttackLine;
+    private String enemyFleeLine;
+    private String enemyDeathLine;
     private int health;
     private int maxHealth;
     private Items weapon;
@@ -44,6 +44,9 @@ public class Enemy {
     }
     public String getEnemyAttackLine() {
         return enemyAttackLine;
+    }
+    public void setEnemyAttackLine(String newLine){
+        enemyAttackLine=newLine;
     }
     public String getEnemyFleeLine() {
         return enemyFleeLine;

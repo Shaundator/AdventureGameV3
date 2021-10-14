@@ -27,6 +27,15 @@ public class Item extends Items {
                     game.player.addHealth(50);
                     return "you feel the surge of vitality";
                 }
+            case "justice":
+                if(game.currentEnemy==game.map.police_officer) {
+                    ((Weapon) game.map.police_officer.getWeapon()).setDamage(5);
+                    game.map.police_officer.setEnemyAttackLine("A fellow man of justice, mercy to you");
+                    return "The Police Officer recognises you as a man of justice";
+                } else {
+                    game.player.getInventory().add(game.map.anti_officer);
+                    return "You shout words of justice for no apparent reason, that would be a waste";
+                }
             default:
                 return "nothing happens";
         }

@@ -20,6 +20,7 @@ public class Map {
     //Items:
     Items rock = new Item("Magnificent Rock","rock",1,"A rock? Maybe if u use it on someone it will actually do something");
     Items vitamin = new Item("Vitamin Drink","vitamin",2,"Adds 100 health to total health");
+    Items anti_officer = new Item("Justice","justice",10,"Become one with justice");
 
     //Weapons:
     Items stick = new MeleeWeapon("Wooden stick","stick",1,5);
@@ -31,6 +32,7 @@ public class Map {
     //Foods:
     Items burger = new Food("Hamburger","burger",2,25);
     Items badBurger = new Food("Bad Hamburger","badburger",2,-25);
+    Items health_potion = new Food("Health Potion", "healthpotion",2,50);
 
     //BossWeapons:
     Items bully_weapon = new MeleeWeapon("Raw insults","insult",0,25);
@@ -39,7 +41,7 @@ public class Map {
     private final Items aunt_weapon = new MeleeWeapon("Scolding","scolding",0,145);
     //BossLoot:
     Items bully_loot = new Item("Bully Loot","bullyloot",5,"Trophy for defeating the bully");
-    Items drug_dealer_loot = new Item("Drug Dealer Loot","dealerloot",5,"Trophy for defeating the drug dealer");
+    Items drug_dealer_loot = anti_officer;
     Items police_officer_loot = new Item("Police Officer Loot","officerloot",5,"Trophy for defeating the drug dealer");
     Items aunt_loot = new Item("Aunt Loot","auntloot",5,"Trophy for defeating your Aunt");
     //Enemy Loot:
@@ -99,6 +101,12 @@ public class Map {
         border.addItem(badBurger);
         border.addItem(burger);
         border.addItem(badBurger);
+
+        train.addItem(health_potion);
+        train.addItem(health_potion);
+        train.addItem(health_potion);
+        train.addItem(health_potion);
+        train.addItem(health_potion);
     }
     private void putEnemies(){
         subway_station.addEnemy(violent_pedestrian);
