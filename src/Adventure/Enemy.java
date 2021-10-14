@@ -5,8 +5,8 @@ public class Enemy {
     private final String nameID;
     private final String description;
     private String enemyAttackLine;
-    private String enemyFleeLine;
-    private String enemyDeathLine;
+    private final String enemyFleeLine;
+    private final String enemyDeathLine;
     private int health;
     private int maxHealth;
     private Items weapon;
@@ -39,18 +39,17 @@ public class Enemy {
     public String getNameID() {
         return nameID;
     }
-    public String getDescription() {
-        return description;
-    }
     public String getEnemyAttackLine() {
         return enemyAttackLine;
     }
     public void setEnemyAttackLine(String newLine){
         enemyAttackLine=newLine;
     }
+
     public String getEnemyFleeLine() {
         return enemyFleeLine;
     }
+
     public String getEnemyDeathLine() {
         return enemyDeathLine;
     }
@@ -61,26 +60,11 @@ public class Enemy {
     public void setHealth(int health) {
         this.health = health;
     }
-
-    public int getMaxHealth() {
-        return maxHealth;
-    }
-
-    public void setMaxHealth(int maxHealth) {
-        this.maxHealth = maxHealth;
-    }
-
     public Items getWeapon(){
         return weapon;
     }
-    public void setWeapon(Items weapon) {
-        this.weapon = weapon;
-    }
     public Items getLoot() {
         return loot;
-    }
-    public void setLoot(Items loot) {
-        this.loot = loot;
     }
 
     @Override

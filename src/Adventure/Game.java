@@ -160,6 +160,8 @@ public class Game {
                         break;
                     case "flee":
                         System.out.println(colorText(yellow, userName + " flees from the fight"));
+                        System.out.println(colorText(yellow,currentEnemy.getName() + ": " +
+                                "'"+currentEnemy.getEnemyFleeLine()+"'"));
                         currentEnemy=null;
                         battleOn=false;
                         break;
@@ -292,7 +294,6 @@ public class Game {
             player.setCurrentWeapon(null);
         }
     }
-
 
     //go
     public void travel(String direction){
