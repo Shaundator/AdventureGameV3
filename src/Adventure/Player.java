@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Player {
     private String name;
     private Room currentRoom;
-    private int weightLimit = 1000;
+    private final int weightLimit = 1000;
     private int health;
     private int currentHealth;
     private Items currentWeapon;
@@ -142,14 +142,8 @@ public class Player {
     public int getWeightLimit() {
         return weightLimit;
     }
-    public void setWeightLimit(int weightLimit) {
-        this.weightLimit = weightLimit;
-    }
     public int getHealth() {
         return health;
-    }
-    public void setHealth(int health) {
-        this.health = health;
     }
     public int getCurrentHealth() {
         return currentHealth;

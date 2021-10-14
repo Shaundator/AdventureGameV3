@@ -7,10 +7,10 @@ public class Enemy {
     private String enemyAttackLine;
     private final String enemyFleeLine;
     private final String enemyDeathLine;
+    private final int maxHealth;
     private int health;
-    private int maxHealth;
-    private Items weapon;
-    private Items loot;
+    private final Items weapon;
+    private final Items loot;
 
     public Enemy(String name, String nameID, String description, String enemyAttackLine,String enemyFleeLine, String enemyDeathLine, int health, Items weapon, Items loot){
         this.name=name;

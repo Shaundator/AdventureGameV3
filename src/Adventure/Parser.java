@@ -1,6 +1,5 @@
 package Adventure;
 
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Parser {
@@ -52,6 +51,7 @@ public class Parser {
         }
         return "("+yesOrNo+")";
     }
+
     //Battle
     public String battleMenu() {
         Scanner scBattle = new Scanner(System.in);
