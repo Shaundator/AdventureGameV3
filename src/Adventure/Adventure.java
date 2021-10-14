@@ -18,7 +18,7 @@ public class Adventure {
     }
     public static String setGender(){
         Scanner sc = new Scanner(System.in);
-        System.out.println("are you male or female?");
+        System.out.println("Male or Female?");
         while(true){
             String gender = sc.nextLine().toLowerCase();
             switch(gender){
