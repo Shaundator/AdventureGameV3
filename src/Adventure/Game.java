@@ -138,7 +138,17 @@ public class Game {
                             System.out.println(colorText(white, userName + " does nothing"));
                             System.out.println(colorText(yellow, currentEnemy.getName() + " thinks " + userName + " is up to something and stand on guard"));
                         } else {
-                            enemyAttack();
+                            if(currentEnemy.getHealth()<=0){
+                                System.out.println(colorText(yellow,currentEnemy.getName() + ": " +
+                                        currentEnemy.getEnemyDeathLine()));
+                                System.out.println(colorText(green, userName + " is victorious!\n" + currentEnemy.getName() +
+                                        " drops " + addArticle(currentEnemy.getLoot().getName())));
+                                player.getCurrentRoom().enemyDeath(currentEnemy);
+                                currentEnemy=null;
+                                battleOn=false;
+                            } else {
+                                enemyAttack();
+                            }
                         }
                         break;
                     case "flee":
